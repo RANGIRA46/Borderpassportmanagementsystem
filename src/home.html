@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Rwanda Border & Passport Management System</title>
+</head>
+<body>
+    <main class="customer-theme">
+        <div class="container py-8">
+            <!-- Hero Section -->
+            <div class="text-center mb-12">
+                <div class="flex justify-center items-center space-x-3 mb-6">
+                    <div class="p-3 bg-navy-medium bg-opacity-10 rounded-full border border-navy-medium border-opacity-20">
+                        <span class="text-6xl">🛡️</span>
+                    </div>
+                </div>
+                <h1 class="text-3xl lg:text-4xl mb-4 text-navy-dark">
+                    Welcome to Rwanda's Digital Border System
+                </h1>
+                <p class="text-lg text-navy-medium max-w-3xl mx-auto mb-6 px-4">
+                    A comprehensive, secure platform for passport and visa applications, border management, 
+                    and international database integration. Sign in for full access or continue as a guest.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button onclick="app.loadPage('overview')" class="btn btn-primary">
+                        📊 System Overview
+                    </button>
+                    <button onclick="app.loadPage('login')" class="btn btn-secondary">
+                        🔐 Sign In
+                    </button>
+                    <button onclick="app.loadPage('apply-passport')" class="btn btn-secondary">
+                        Start Application →
+                    </button>
+                </div>
+            </div>
+
+            <!-- Authentication Prompt for Guests -->
+            <div class="mb-12">
+                <div class="card" style="background: linear-gradient(to right, var(--blue-lightest), white);">
+                    <div class="card-content p-8">
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div class="text-center sm:text-left">
+                                <h3 class="text-xl mb-2 text-navy-dark">Get Full Access to All Features</h3>
+                                <p class="text-navy-medium">
+                                    Sign in to track applications, access your dashboard, and use advanced features. 
+                                    Registration is free and takes less than 2 minutes.
+                                </p>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <button onclick="app.loadPage('login')" class="btn btn-primary">
+                                    🔐 Sign In
+                                </button>
+                                <button onclick="app.loadPage('login')" class="btn btn-secondary">
+                                    👤 Register
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Statistics -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="card card-hover text-center">
+                    <div class="card-content">
+                        <div class="text-4xl mb-3">📄</div>
+                        <div class="text-2xl font-bold mb-1 text-navy-dark">15,247</div>
+                        <div class="text-sm text-navy-medium mb-1">Applications Processed</div>
+                        <div class="badge badge-secondary text-xs">All time</div>
+                    </div>
+                </div>
+                <div class="card card-hover text-center">
+                    <div class="card-content">
+                        <div class="text-4xl mb-3">⏱️</div>
+                        <div class="text-2xl font-bold mb-1 text-navy-dark">48h</div>
+                        <div class="text-sm text-navy-medium mb-1">Avg Processing Time</div>
+                        <div class="badge badge-secondary text-xs">67% reduction achieved</div>
+                    </div>
+                </div>
+                <div class="card card-hover text-center">
+                    <div class="card-content">
+                        <div class="text-4xl mb-3">👥</div>
+                        <div class="text-2xl font-bold mb-1 text-navy-dark">2,526</div>
+                        <div class="text-sm text-navy-medium mb-1">Border Crossings Today</div>
+                        <div class="badge badge-secondary text-xs">Real-time tracking</div>
+                    </div>
+                </div>
+                <div class="card card-hover text-center">
+                    <div class="card-content">
+                        <div class="text-4xl mb-3">🛡️</div>
+                        <div class="text-2xl font-bold mb-1 text-navy-dark">99.95%</div>
+                        <div class="text-sm text-navy-medium mb-1">System Uptime</div>
+                        <div class="badge badge-secondary text-xs">Above target</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Available Services -->
+            <div class="mb-12">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                    <h2 class="text-2xl text-navy-dark">Available Services</h2>
+                    <div class="badge badge-outline">Public Access Portal</div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="card card-hover" onclick="app.loadPage('apply-passport')">
+                        <div class="card-content">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="p-3 rounded-lg text-white bg-navy-medium">
+                                    ✅
+                                </div>
+                                <div class="badge badge-secondary text-xs">Popular</div>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-navy-dark">Apply for Passport</h3>
+                            <p class="text-sm text-navy-medium mb-4">Submit a new passport application online</p>
+                            <button class="btn btn-secondary w-full">
+                                Start Now →
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-hover" onclick="app.loadPage('apply-visa')">
+                        <div class="card-content">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="p-3 rounded-lg text-white bg-blue-medium">
+                                    🌐
+                                </div>
+                                <div class="badge badge-secondary text-xs">Popular</div>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-navy-dark">Apply for Visa</h3>
+                            <p class="text-sm text-navy-medium mb-4">Complete visa application with document upload</p>
+                            <button class="btn btn-secondary w-full">
+                                Start Now →
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-hover" onclick="app.loadPage('status')">
+                        <div class="card-content">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="p-3 rounded-lg text-white bg-blue-light">
+                                    🔍
+                                </div>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-navy-dark">Check Status</h3>
+                            <p class="text-sm text-navy-medium mb-4">Track your application progress</p>
+                            <button class="btn btn-secondary w-full">
+                                Check Now →
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-hover" onclick="app.loadPage('appointments')">
+                        <div class="card-content">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="p-3 rounded-lg text-white bg-navy-dark">
+                                    📅
+                                </div>
+                                <div class="badge badge-secondary text-xs">Popular</div>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-navy-dark">Book Appointment</h3>
+                            <p class="text-sm text-navy-medium mb-4">Schedule biometric enrollment</p>
+                            <button class="btn btn-secondary w-full">
+                                Book Now →
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-hover" onclick="app.loadPage('payments')">
+                        <div class="card-content">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="p-3 rounded-lg text-white bg-navy-medium">
+                                    💳
+                                </div>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-navy-dark">Payment Center</h3>
+                            <p class="text-sm text-navy-medium mb-4">Pay fees and track payments</p>
+                            <button class="btn btn-secondary w-full">
+                                Pay Now →
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-hover" onclick="app.loadPage('documents')">
+                        <div class="card-content">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="p-3 rounded-lg text-white bg-blue-medium">
+                                    📎
+                                </div>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-navy-dark">Upload Documents</h3>
+                            <p class="text-sm text-navy-medium mb-4">Submit required documentation securely</p>
+                            <button class="btn btn-secondary w-full">
+                                Upload →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Features and Recent Updates -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                <!-- System Features -->
+                <div class="lg:col-span-2">
+                    <h2 class="text-2xl mb-6 text-navy-dark">System Capabilities</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="card">
+                            <div class="card-content p-4">
+                                <div class="flex items-start space-x-3">
+                                    <div class="mt-1 text-navy-medium">🌍</div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h4 class="font-medium text-navy-dark">Multi-language Support</h4>
+                                            <div class="badge badge-success text-xs">Active</div>
+                                        </div>
+                                        <p class="text-sm text-navy-medium">Available in Kinyarwanda, English, and French</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-content p-4">
+                                <div class="flex items-start space-x-3">
+                                    <div class="mt-1 text-navy-medium">🗄️</div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h4 class="font-medium text-navy-dark">INTERPOL Integration</h4>
+                                            <div class="badge badge-success text-xs">Active</div>
+                                        </div>
+                                        <p class="text-sm text-navy-medium">Real-time passenger screening against international databases</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-content p-4">
+                                <div class="flex items-start space-x-3">
+                                    <div class="mt-1 text-navy-medium">👆</div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h4 class="font-medium text-navy-dark">Biometric Security</h4>
+                                            <div class="badge badge-success text-xs">Active</div>
+                                        </div>
+                                        <p class="text-sm text-navy-medium">Face and fingerprint recognition with ISO/ANSI compliance</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-content p-4">
+                                <div class="flex items-start space-x-3">
+                                    <div class="mt-1 text-navy-medium">⚡</div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h4 class="font-medium text-navy-dark">Real-time Processing</h4>
+                                            <div class="badge badge-success text-xs">Active</div>
+                                        </div>
+                                        <p class="text-sm text-navy-medium">Border validation in under 2 seconds</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Updates -->
+                <div>
+                    <h2 class="text-2xl mb-6 text-navy-dark">Recent Updates</h2>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="space-y-4">
+                                <div class="border-b border-blue-light pb-4">
+                                    <div class="text-xs text-blue-medium mb-1">2024-01-21</div>
+                                    <h4 class="font-medium mb-1 text-navy-dark">Authentication System Enhanced</h4>
+                                    <p class="text-sm text-navy-medium">Improved user login and role-based access control</p>
+                                </div>
+                                <div class="border-b border-blue-light pb-4">
+                                    <div class="text-xs text-blue-medium mb-1">2024-01-20</div>
+                                    <h4 class="font-medium mb-1 text-navy-dark">Enhanced Document Upload</h4>
+                                    <p class="text-sm text-navy-medium">Improved quality checks and automated verification</p>
+                                </div>
+                                <div class="border-b border-blue-light pb-4">
+                                    <div class="text-xs text-blue-medium mb-1">2024-01-18</div>
+                                    <h4 class="font-medium mb-1 text-navy-dark">Mobile App Launch</h4>
+                                    <p class="text-sm text-navy-medium">PWA support for offline application submission</p>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-blue-medium mb-1">2024-01-15</div>
+                                    <h4 class="font-medium mb-1 text-navy-dark">Multi-Agency Integration</h4>
+                                    <p class="text-sm text-navy-medium">Connected to regional and international border systems</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary w-full mt-4">
+                                View All Updates
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Information -->
+            <div class="card bg-blue-lightest">
+                <div class="card-content p-8 text-center">
+                    <div class="max-w-2xl mx-auto">
+                        <h3 class="text-xl mb-4 text-navy-dark">Need Help?</h3>
+                        <p class="text-navy-medium mb-6">
+                            Our support team is available 24/7 to assist with applications, appointments, and system access. 
+                            Sign in for personalized support and faster resolution.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center text-sm">
+                            <div class="flex items-center justify-center space-x-2">
+                                <span class="text-red-600">⚠️</span>
+                                <span class="text-navy-medium">Emergency: +250 788 123 000</span>
+                            </div>
+                            <div class="flex items-center justify-center space-x-2">
+                                <span class="text-blue-medium">✅</span>
+                                <span class="text-navy-medium">Support: +250 788 123 456</span>
+                            </div>
+                            <div class="flex items-center justify-center space-x-2">
+                                <span class="text-navy-medium">🌐</span>
+                                <span class="text-navy-medium">Online Chat Available</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

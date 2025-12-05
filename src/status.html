@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Application Status - Rwanda Border & Passport Management System</title>
+</head>
+<body>
+    <main>
+        <div class="container py-8">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold mb-2 text-navy-dark">Check Application Status</h1>
+                <p class="text-navy-medium">Track your passport or visa application progress in real-time</p>
+            </div>
+
+            <!-- Status Check Form -->
+            <div class="max-w-2xl mx-auto mb-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Application Lookup</h2>
+                        <p class="card-description">Enter your application reference number or personal details</p>
+                    </div>
+                    <div class="card-content">
+                        <form id="status-form" class="space-y-4">
+                            <div class="tabs">
+                                <div class="tab-list">
+                                    <button type="button" class="tab-button active" data-tab="reference">Reference Number</button>
+                                    <button type="button" class="tab-button" data-tab="personal">Personal Details</button>
+                                </div>
+                                
+                                <div id="reference" class="tab-content active">
+                                    <div class="space-y-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Application Reference Number *</label>
+                                            <input name="referenceNumber" type="text" class="form-input" 
+                                                   placeholder="e.g., PA2024001234, VA2024005678" required>
+                                            <p class="text-xs text-navy-medium mt-1">
+                                                You can find this in your confirmation email or SMS
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div id="personal" class="tab-content">
+                                    <div class="space-y-4">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div class="form-group">
+                                                <label class="form-label">First Name *</label>
+                                                <input name="firstName" type="text" class="form-input" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Last Name *</label>
+                                                <input name="lastName" type="text" class="form-input" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Date of Birth *</label>
+                                            <input name="dateOfBirth" type="date" class="form-input" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">National ID or Passport Number *</label>
+                                            <input name="idNumber" type="text" class="form-input" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-full">
+                                🔍 Check Status
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Container -->
+            <div id="results-container" class="hidden">
+                <!-- Results will be populated by JavaScript -->
+            </div>
+
+            <!-- Quick Links -->
+            <div class="max-w-4xl mx-auto">
+                <h3 class="text-xl font-semibold mb-4 text-navy-dark">Quick Actions</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="card card-hover" onclick="app.loadPage('apply-passport')">
+                        <div class="card-content p-4 text-center">
+                            <div class="text-3xl mb-2">📘</div>
+                            <h4 class="font-medium mb-2">New Passport Application</h4>
+                            <p class="text-sm text-navy-medium">Start a new passport application</p>
+                        </div>
+                    </div>
+                    <div class="card card-hover" onclick="app.loadPage('apply-visa')">
+                        <div class="card-content p-4 text-center">
+                            <div class="text-3xl mb-2">📄</div>
+                            <h4 class="font-medium mb-2">New Visa Application</h4>
+                            <p class="text-sm text-navy-medium">Apply for a visa</p>
+                        </div>
+                    </div>
+                    <div class="card card-hover" onclick="app.loadPage('appointments')">
+                        <div class="card-content p-4 text-center">
+                            <div class="text-3xl mb-2">📅</div>
+                            <h4 class="font-medium mb-2">Book Appointment</h4>
+                            <p class="text-sm text-navy-medium">Schedule biometric enrollment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { UIComponents } from './js/components.js';
+        import { Utils } from './js/utils.js';
+
+        // Mock application data
+        const mockApplications = [
+            {
+                reference: 'PA2024001234',
+                type: 'Passport Application',
+                applicant: 'John Doe',
+                status: 'processing',
+                submitted: new Date('2024-01-15'),
+                estimatedCompletion: new Date('2024-01-22'),
+                currentStep: 'Document Review',
+                progress: 65,
+                steps: [
+                    { name: 'Application Submitted', completed: true, date: '2024-01-15' },
+                    { name: 'Payment Confirmed', completed: true, date: '2024-01-15' },
+                    { name: 'Document Review', completed: false, current: true },
+                    { name: 'Biometric Capture', completed: false },
+                    { name: 'Passport Production', completed: false },
+                    { name: 'Ready for Collection', completed: false }
+                ]
+            },
+            {
+                reference: 'VA2024005678',
+                type: 'Visa Application',
+                applicant: 'Jane Smith',
+                status: 'approved',
+                submitted: new Date('2024-01-10'),
+                estimatedCompletion: new Date('2024-01-17'),
+                currentStep: 'Approved - Ready for Collection',
+                progress: 100,
+                steps: [
+                    { name: 'Application Submitted', completed: true, date: '2024-01-10' },
+                    { name: 'Payment Confirmed', completed: true, date: '2024-01-10' },
+                    { name: 'Document Review', completed: true, date: '2024-01-12' },
+                    { name: 'Background Check', completed: true, date: '2024-01-14' },
+                    { name: 'Visa Approved', completed: true, date: '2024-01-16' },
+                    { name: 'Ready for Collection', completed: true, date: '2024-01-17' }
+                ]
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeStatusPage();
+        });
+
+        function initializeStatusPage() {
+            // Initialize tabs
+            if (typeof app !== 'undefined') {
+                app.initializeTabs();
+            }
+
+            // Handle form submission
+            const form = document.getElementById('status-form');
+            form.addEventListener('submit', handleStatusCheck);
+        }
+
+        function handleStatusCheck(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            // Show loading
+            const submitButton = e.target.querySelector('button[type="submit"]');
+            Utils.showLoading(submitButton, 'Searching...');
+            
+            // Simulate API call
+            setTimeout(() => {
+                Utils.hideLoading(submitButton);
+                
+                // Find application
+                let application = null;
+                
+                if (data.referenceNumber) {
+                    application = mockApplications.find(app => 
+                        app.reference.toLowerCase() === data.referenceNumber.toLowerCase()
+                    );
+                } else if (data.firstName && data.lastName) {
+                    application = mockApplications.find(app => 
+                        app.applicant.toLowerCase().includes(data.firstName.toLowerCase()) &&
+                        app.applicant.toLowerCase().includes(data.lastName.toLowerCase())
+                    );
+                }
+                
+                if (application) {
+                    displayResults(application);
+                } else {
+                    displayNoResults();
+                }
+            }, 2000);
+        }
+
+        function displayResults(application) {
+            const container = document.getElementById('results-container');
+            container.classList.remove('hidden');
+            
+            const statusColor = Utils.getStatusColor(application.status);
+            const progressColor = application.progress === 100 ? 'bg-green-500' : 'bg-blue-500';
+            
+            container.innerHTML = `
+                <div class="max-w-4xl mx-auto">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                                <div>
+                                    <h3 class="card-title">${application.type}</h3>
+                                    <p class="card-description">Reference: ${application.reference}</p>
+                                </div>
+                                <div class="badge ${statusColor}">
+                                    ${application.status.toUpperCase()}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content space-y-6">
+                            <!-- Application Summary -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <h4 class="font-medium mb-1">Applicant</h4>
+                                    <p class="text-navy-medium">${application.applicant}</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Submitted</h4>
+                                    <p class="text-navy-medium">${Utils.formatDate(application.submitted, { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Estimated Completion</h4>
+                                    <p class="text-navy-medium">${Utils.formatDate(application.estimatedCompletion, { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                                </div>
+                            </div>
+
+                            <!-- Progress Bar -->
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium">Current Step: ${application.currentStep}</span>
+                                    <span class="font-medium">${application.progress}%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar ${progressColor}" style="width: ${application.progress}%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Application Steps -->
+                            <div>
+                                <h4 class="font-medium mb-4">Application Progress</h4>
+                                <div class="space-y-3">
+                                    ${application.steps.map((step, index) => `
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 rounded-full flex items-center justify-center ${
+                                                step.completed ? 'bg-green-500 text-white' :
+                                                step.current ? 'bg-blue-500 text-white' :
+                                                'bg-gray-200 text-gray-500'
+                                            }">
+                                                ${step.completed ? '✓' : index + 1}
+                                            </div>
+                                            <div class="flex-1">
+                                                <div class="font-medium ${step.current ? 'text-blue-600' : ''}">${step.name}</div>
+                                                ${step.date ? `<div class="text-sm text-navy-medium">${Utils.formatDate(new Date(step.date), { month: 'short', day: 'numeric' })}</div>` : ''}
+                                            </div>
+                                            ${step.completed ? '<div class="text-green-500">✓</div>' : ''}
+                                            ${step.current ? '<div class="text-blue-500">⟳</div>' : ''}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <!-- Next Steps -->
+                            ${application.status === 'approved' ? `
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                                    <h4 class="font-medium text-green-800 mb-2">🎉 Application Approved!</h4>
+                                    <p class="text-green-700 text-sm mb-3">
+                                        Your ${application.type.toLowerCase()} has been approved and is ready for collection.
+                                    </p>
+                                    <div class="flex flex-col sm:flex-row gap-2">
+                                        <button onclick="downloadDocument()" class="btn btn-primary btn-sm">
+                                            📄 Download Approval Letter
+                                        </button>
+                                        <button onclick="app.loadPage('appointments')" class="btn btn-secondary btn-sm">
+                                            📅 Schedule Collection
+                                        </button>
+                                    </div>
+                                </div>
+                            ` : application.status === 'processing' ? `
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                    <h4 class="font-medium text-blue-800 mb-2">📋 Application in Progress</h4>
+                                    <p class="text-blue-700 text-sm mb-3">
+                                        Your application is currently being processed. We'll notify you of any updates.
+                                    </p>
+                                    <p class="text-blue-700 text-sm">
+                                        Expected completion: <strong>${Utils.formatDate(application.estimatedCompletion, { month: 'long', day: 'numeric', year: 'numeric' })}</strong>
+                                    </p>
+                                </div>
+                            ` : ''}
+
+                            <!-- Actions -->
+                            <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-blue-light">
+                                <button onclick="printStatus()" class="btn btn-secondary">
+                                    🖨️ Print Status
+                                </button>
+                                <button onclick="shareStatus()" class="btn btn-secondary">
+                                    📤 Share Status
+                                </button>
+                                <button onclick="contactSupport()" class="btn btn-secondary">
+                                    📞 Contact Support
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Scroll to results
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function displayNoResults() {
+            const container = document.getElementById('results-container');
+            container.classList.remove('hidden');
+            
+            container.innerHTML = `
+                <div class="max-w-2xl mx-auto">
+                    <div class="card">
+                        <div class="card-content text-center p-8">
+                            <div class="text-6xl mb-4">🔍</div>
+                            <h3 class="text-xl font-semibold mb-2">No Application Found</h3>
+                            <p class="text-navy-medium mb-6">
+                                We couldn't find an application matching your search criteria. 
+                                Please check your information and try again.
+                            </p>
+                            <div class="space-y-3">
+                                <button onclick="searchAgain()" class="btn btn-primary w-full">
+                                    🔄 Search Again
+                                </button>
+                                <div class="text-sm text-navy-medium">
+                                    Need help? Call <strong>+250 788 123 456</strong> or email 
+                                    <strong>support@immigration.gov.rw</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function searchAgain() {
+            document.getElementById('results-container').classList.add('hidden');
+            document.getElementById('status-form').reset();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function downloadDocument() {
+            Utils.showNotification('Document download started', 'success');
+            // Simulate document download
+            setTimeout(() => {
+                Utils.downloadFile(
+                    'This is a sample approval letter for demonstration purposes.',
+                    'approval-letter.txt',
+                    'text/plain'
+                );
+            }, 1000);
+        }
+
+        function printStatus() {
+            window.print();
+        }
+
+        function shareStatus() {
+            const url = window.location.href;
+            Utils.copyToClipboard(url).then(() => {
+                Utils.showNotification('Status link copied to clipboard', 'success');
+            }).catch(() => {
+                Utils.showNotification('Unable to copy link', 'warning');
+            });
+        }
+
+        function contactSupport() {
+            const application = mockApplications[0]; // Use first application as example
+            const message = `I need help with my application ${application.reference}. Current status: ${application.status}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Immigration Support Request',
+                    text: message,
+                    url: window.location.href
+                });
+            } else {
+                Utils.copyToClipboard(message).then(() => {
+                    Utils.showNotification('Support message copied to clipboard', 'success');
+                });
+            }
+        }
+
+        // Make functions globally available
+        window.searchAgain = searchAgain;
+        window.downloadDocument = downloadDocument;
+        window.printStatus = printStatus;
+        window.shareStatus = shareStatus;
+        window.contactSupport = contactSupport;
+    </script>
+</body>
+</html>

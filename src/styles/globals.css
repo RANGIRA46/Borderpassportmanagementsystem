@@ -1,0 +1,824 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 14px;
+  
+  /* Custom color palette */
+  --navy-dark: #071f35;      /* (7,31,53) */
+  --navy-medium: #24496b;    /* (36,73,107) */
+  --blue-medium: #446d92;    /* (68,109,146) */
+  --blue-light: #98b1c8;     /* (152,177,200) */
+  --blue-lightest: #f7fafe;  /* (247,250,254) */
+  
+  /* Night-optimized admin colors */
+  --admin-bg-primary: #0a1a2a;     /* Darker than navy-dark for reduced eye strain */
+  --admin-bg-secondary: #1a2a3a;   /* Soft dark blue */
+  --admin-bg-card: #1e2e3e;        /* Card backgrounds */
+  --admin-text-primary: #e1e8f0;   /* Soft white for main text */
+  --admin-text-secondary: #b8c5d1; /* Muted text */
+  --admin-accent-soft: #4a6fa5;    /* Softer blue accent */
+  --admin-accent-muted: #5a7fb5;   /* Even softer for highlights */
+  
+  /* Light mode colors using custom palette */
+  --background: var(--blue-lightest);
+  --foreground: var(--navy-dark);
+  --card: #ffffff;
+  --card-foreground: var(--navy-dark);
+  --popover: #ffffff;
+  --popover-foreground: var(--navy-dark);
+  --primary: var(--navy-medium);
+  --primary-foreground: #ffffff;
+  --secondary: var(--blue-light);
+  --secondary-foreground: var(--navy-dark);
+  --muted: var(--blue-light);
+  --muted-foreground: var(--navy-medium);
+  --accent: var(--blue-medium);
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: var(--blue-light);
+  --input: transparent;
+  --input-background: #ffffff;
+  --switch-background: var(--blue-light);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: var(--blue-medium);
+  
+  /* Chart colors using palette variations */
+  --chart-1: var(--navy-medium);
+  --chart-2: var(--blue-medium);
+  --chart-3: var(--navy-dark);
+  --chart-4: var(--blue-light);
+  --chart-5: #22c55e;
+  
+  --radius: 0.625rem;
+  
+  /* Sidebar colors */
+  --sidebar: var(--blue-lightest);
+  --sidebar-foreground: var(--navy-dark);
+  --sidebar-primary: var(--navy-medium);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--blue-light);
+  --sidebar-accent-foreground: var(--navy-dark);
+  --sidebar-border: var(--blue-light);
+  --sidebar-ring: var(--blue-medium);
+}
+
+.dark {
+  /* Ultra-dark theme matching the reference design */
+  /* Almost pure black background for maximum contrast */
+  --background: #0f0f0f;
+  --foreground: #ffffff;
+  
+  /* Surface/Card colors - slightly lighter than background */
+  --card: #1a1a1a;
+  --card-foreground: #ffffff;
+  --popover: #1f1f1f;
+  --popover-foreground: #ffffff;
+  
+  /* Primary colors - vibrant blue for accents */
+  --primary: #4f46e5;
+  --primary-foreground: #ffffff;
+  
+  /* Secondary and muted colors */
+  --secondary: #1f1f1f;
+  --secondary-foreground: #ffffff;
+  --muted: #1f1f1f;
+  --muted-foreground: #a3a3a3;
+  
+  /* Accent colors - bright blue */
+  --accent: #4f46e5;
+  --accent-foreground: #ffffff;
+  
+  /* Destructive/Error colors */
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  
+  /* Borders and dividers - very subtle */
+  --border: #262626;
+  --input: #262626;
+  --input-background: #1a1a1a;
+  --switch-background: #4f46e5;
+  --ring: #4f46e5;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  
+  /* Dark mode chart colors - vibrant but not harsh */
+  --chart-1: #4f46e5;
+  --chart-2: #8b5cf6;
+  --chart-3: #06b6d4;
+  --chart-4: #f59e0b;
+  --chart-5: #10b981;
+  
+  /* Dark mode sidebar */
+  --sidebar: #0f0f0f;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #4f46e5;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1f1f1f;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #262626;
+  --sidebar-ring: #4f46e5;
+}
+
+/* Customer Theme - Light, friendly, approachable */
+.customer-theme {
+  --background: var(--blue-lightest);
+  --foreground: var(--navy-dark);
+  --card: #ffffff;
+  --card-foreground: var(--navy-dark);
+  --primary: var(--navy-medium);
+  --secondary: var(--blue-light);
+  --accent: var(--blue-medium);
+  --border: var(--blue-light);
+}
+
+.customer-theme h1,
+.customer-theme h2,
+.customer-theme h3,
+.customer-theme h4 {
+  color: var(--navy-dark);
+}
+
+.customer-theme .card {
+  background: #ffffff;
+  border: 1px solid var(--blue-light);
+  box-shadow: 0 2px 8px rgba(7, 31, 53, 0.08);
+  border-radius: 12px;
+}
+
+.customer-theme .btn-primary {
+  background: var(--navy-medium);
+  color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(36, 73, 107, 0.2);
+}
+
+/* Admin Theme - Dark, professional, data-focused with night optimization */
+.admin-theme {
+  --background: var(--admin-bg-primary);
+  --foreground: var(--admin-text-primary);
+  --card: var(--admin-bg-card);
+  --card-foreground: var(--admin-text-primary);
+  --primary: var(--admin-accent-soft);
+  --secondary: var(--admin-bg-secondary);
+  --accent: var(--admin-accent-muted);
+  --border: var(--admin-bg-secondary);
+  --muted: var(--admin-bg-secondary);
+  --muted-foreground: var(--admin-text-secondary);
+}
+
+.admin-theme h1,
+.admin-theme h2,
+.admin-theme h3,
+.admin-theme h4 {
+  color: var(--admin-text-primary);
+  font-weight: 600;
+}
+
+.admin-theme .card {
+  background: var(--admin-bg-card);
+  border: 1px solid var(--admin-bg-secondary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.admin-theme .btn-primary {
+  background: var(--admin-accent-soft);
+  color: var(--admin-text-primary);
+  border-radius: 6px;
+  font-weight: 500;
+  border: 1px solid var(--admin-accent-muted);
+}
+
+.admin-theme .btn-primary:hover {
+  background: var(--admin-accent-muted);
+  border-color: var(--admin-accent-soft);
+}
+
+.admin-theme .text-muted {
+  color: var(--admin-text-secondary);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  
+  /* Custom utility classes for the color palette */
+  --color-navy-dark: var(--navy-dark);
+  --color-navy-medium: var(--navy-medium);
+  --color-blue-medium: var(--blue-medium);
+  --color-blue-light: var(--blue-light);
+  --color-blue-lightest: var(--blue-lightest);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Smooth transitions for theme changes */
+  html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Ensure buttons, inputs, and interactive elements transition smoothly */
+  button, input, select, textarea, a {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, opacity 0.2s ease;
+  }
+}
+
+/**
+ * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
+ */
+@layer base {
+  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+      color: var(--navy-dark);
+    }
+
+    h2 {
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+      color: var(--navy-dark);
+    }
+
+    h3 {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+      color: var(--navy-dark);
+    }
+
+    h4 {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+      color: var(--navy-dark);
+    }
+
+    p {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+
+    label {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    button {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    input {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+  }
+}
+
+/* Dark mode typography adjustments */
+@layer base {
+  .dark :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1, h2, h3, h4 {
+      color: #E0E0E0;
+    }
+    
+    p {
+      color: #E0E0E0;
+    }
+    
+    label {
+      color: #E0E0E0;
+    }
+  }
+  
+  /* Dark mode link colors */
+  .dark a {
+    color: #3B82F6;
+  }
+  
+  .dark a:hover {
+    color: #60A5FA;
+  }
+}
+
+/* Customer theme typography */
+@layer base {
+  .customer-theme :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1, h2, h3, h4 {
+      color: var(--navy-dark);
+      font-weight: 600;
+    }
+  }
+}
+
+/* Admin theme typography */
+@layer base {
+  .admin-theme :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1, h2, h3, h4 {
+      color: var(--blue-lightest);
+      font-weight: 700;
+    }
+  }
+}
+
+/* Custom utility classes for brand colors */
+@layer utilities {
+  .bg-navy-dark {
+    background-color: var(--navy-dark);
+  }
+  
+  .bg-navy-medium {
+    background-color: var(--navy-medium);
+  }
+  
+  .bg-blue-medium {
+    background-color: var(--blue-medium);
+  }
+  
+  .bg-blue-light {
+    background-color: var(--blue-light);
+  }
+  
+  .bg-blue-lightest {
+    background-color: var(--blue-lightest);
+  }
+  
+  .text-navy-dark {
+    color: var(--navy-dark);
+  }
+  
+  .text-navy-medium {
+    color: var(--navy-medium);
+  }
+  
+  .text-blue-medium {
+    color: var(--blue-medium);
+  }
+  
+  .text-blue-light {
+    color: var(--blue-light);
+  }
+  
+  .text-blue-lightest {
+    color: var(--blue-lightest);
+  }
+  
+  .border-navy-dark {
+    border-color: var(--navy-dark);
+  }
+  
+  .border-navy-medium {
+    border-color: var(--navy-medium);
+  }
+  
+  .border-blue-medium {
+    border-color: var(--blue-medium);
+  }
+  
+  .border-blue-light {
+    border-color: var(--blue-light);
+  }
+  
+  .border-blue-lightest {
+    border-color: var(--blue-lightest);
+  }
+  
+  /* Admin theme utility classes */
+  .bg-admin-primary {
+    background-color: var(--admin-bg-primary);
+  }
+  
+  .bg-admin-secondary {
+    background-color: var(--admin-bg-secondary);
+  }
+  
+  .bg-admin-card {
+    background-color: var(--admin-bg-card);
+  }
+  
+  .text-admin-primary {
+    color: var(--admin-text-primary);
+  }
+  
+  .text-admin-secondary {
+    color: var(--admin-text-secondary);
+  }
+  
+  .border-admin-secondary {
+    border-color: var(--admin-bg-secondary);
+  }
+}
+
+/* Enhanced navigation styling with custom colors */
+@layer components {
+  .nav-primary {
+    background-color: var(--navy-dark);
+    border-bottom: 1px solid var(--navy-medium);
+  }
+  
+  .nav-primary * {
+    color: var(--blue-lightest);
+  }
+  
+  .btn-primary-custom {
+    background-color: var(--navy-medium);
+    color: var(--blue-lightest);
+    border: 1px solid var(--navy-medium);
+  }
+  
+  .btn-primary-custom:hover {
+    background-color: var(--navy-dark);
+    border-color: var(--navy-dark);
+  }
+  
+  .btn-secondary-custom {
+    background-color: transparent;
+    color: var(--navy-medium);
+    border: 1px solid var(--blue-light);
+  }
+  
+  .btn-secondary-custom:hover {
+    background-color: var(--blue-light);
+    color: var(--navy-dark);
+  }
+  
+  .card-custom {
+    background-color: #ffffff;
+    border: 1px solid var(--blue-light);
+    box-shadow: 0 1px 3px rgba(7, 31, 53, 0.1);
+  }
+  
+  .alert-custom {
+    border: 1px solid var(--blue-light);
+    background-color: var(--blue-lightest);
+    color: var(--navy-dark);
+  }
+
+  /* Customer Theme Components */
+  .customer-theme .nav-primary {
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--blue-light);
+    box-shadow: 0 2px 4px rgba(7, 31, 53, 0.05);
+  }
+
+  .customer-theme .nav-primary * {
+    color: var(--navy-dark);
+  }
+
+  .customer-theme .card-hover {
+    transition: all 0.2s ease;
+    border-radius: 12px;
+  }
+
+  .customer-theme .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(7, 31, 53, 0.12);
+  }
+
+  /* Admin Theme Components - Night-optimized */
+  .admin-theme .nav-primary {
+    background-color: var(--admin-bg-primary);
+    border-bottom: 1px solid var(--admin-bg-secondary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  .admin-theme .nav-primary * {
+    color: var(--admin-text-primary);
+  }
+
+  .admin-theme .card-dashboard {
+    background: linear-gradient(135deg, var(--admin-bg-card) 0%, var(--admin-bg-secondary) 100%);
+    border: 1px solid var(--admin-bg-secondary);
+    border-radius: 8px;
+  }
+
+  .admin-theme .alert-critical {
+    background: linear-gradient(90deg, rgba(220, 38, 38, 0.1) 0%, rgba(220, 38, 38, 0.05) 100%);
+    border-left: 3px solid #dc2626;
+    color: var(--admin-text-primary);
+    border-radius: 4px;
+  }
+
+  .admin-theme .metric-card {
+    background: var(--admin-bg-card);
+    border: 1px solid var(--admin-bg-secondary);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .admin-theme .metric-card:hover {
+    background: var(--admin-bg-secondary);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Night-optimized chart colors for admin theme */
+  .admin-theme .recharts-text {
+    fill: var(--admin-text-secondary) !important;
+  }
+
+  .admin-theme .recharts-cartesian-axis-tick-value {
+    fill: var(--admin-text-secondary) !important;
+  }
+
+  .admin-theme .recharts-legend-item-text {
+    color: var(--admin-text-secondary) !important;
+  }
+
+  /* Reduced contrast borders and dividers */
+  .admin-theme .border {
+    border-color: var(--admin-bg-secondary);
+  }
+
+  .admin-theme .divide-y > * + * {
+    border-top-color: var(--admin-bg-secondary);
+  }
+
+  /* Softer focus rings for better night viewing */
+  .admin-theme input:focus,
+  .admin-theme select:focus,
+  .admin-theme textarea:focus {
+    ring-color: var(--admin-accent-soft);
+    ring-width: 1px;
+  }
+
+  /* Night-optimized table styling */
+  .admin-theme table {
+    background: var(--admin-bg-card);
+    border-color: var(--admin-bg-secondary);
+  }
+
+  .admin-theme th {
+    background: var(--admin-bg-secondary);
+    color: var(--admin-text-primary);
+    border-color: var(--admin-bg-secondary);
+  }
+
+  .admin-theme td {
+    border-color: var(--admin-bg-secondary);
+    color: var(--admin-text-primary);
+  }
+
+  .admin-theme tr:hover {
+    background: var(--admin-bg-secondary);
+  }
+
+  /* Reduced brightness for buttons and interactive elements */
+  .admin-theme .btn-secondary {
+    background: var(--admin-bg-secondary);
+    color: var(--admin-text-primary);
+    border: 1px solid var(--admin-bg-secondary);
+  }
+
+  .admin-theme .btn-secondary:hover {
+    background: var(--admin-accent-soft);
+    border-color: var(--admin-accent-muted);
+  }
+
+  /* Softer shadows for admin cards */
+  .admin-theme .shadow-sm {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .admin-theme .shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  }
+
+  .admin-theme .shadow-lg {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Night-optimized alerts and notifications */
+  .admin-theme .alert-info {
+    background: rgba(74, 111, 165, 0.1);
+    border-color: var(--admin-accent-soft);
+    color: var(--admin-text-primary);
+  }
+
+  .admin-theme .alert-warning {
+    background: rgba(251, 191, 36, 0.1);
+    border-color: #fbbf24;
+    color: var(--admin-text-primary);
+  }
+
+  .admin-theme .alert-success {
+    background: rgba(34, 197, 94, 0.1);
+    border-color: #22c55e;
+    color: var(--admin-text-primary);
+  }
+
+  /* Reduced contrast text inputs */
+  .admin-theme input,
+  .admin-theme textarea,
+  .admin-theme select {
+    background: var(--admin-bg-secondary);
+    border-color: var(--admin-bg-secondary);
+    color: var(--admin-text-primary);
+  }
+
+  .admin-theme input::placeholder,
+  .admin-theme textarea::placeholder {
+    color: var(--admin-text-secondary);
+  }
+
+  /* Softer loading states */
+  .admin-theme .skeleton {
+    background: linear-gradient(90deg, var(--admin-bg-secondary) 25%, var(--admin-bg-card) 50%, var(--admin-bg-secondary) 75%);
+  }
+
+  /* Night-optimized progress bars */
+  .admin-theme .progress-bar {
+    background: var(--admin-bg-secondary);
+  }
+
+  .admin-theme .progress-fill {
+    background: var(--admin-accent-soft);
+  }
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+/* Dark mode component enhancements */
+@layer components {
+  /* Dark mode navigation */
+  .dark .nav-primary {
+    background-color: #1E1E1E;
+    border-bottom: 1px solid #333333;
+  }
+  
+  .dark .nav-primary * {
+    color: #E0E0E0;
+  }
+  
+  /* Dark mode cards */
+  .dark .card-custom {
+    background-color: #1E1E1E;
+    border: 1px solid #333333;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Dark mode buttons */
+  .dark .btn-primary-custom {
+    background-color: #3B82F6;
+    color: #FFFFFF;
+    border: 1px solid #3B82F6;
+  }
+  
+  .dark .btn-primary-custom:hover {
+    background-color: #2563EB;
+    border-color: #2563EB;
+  }
+  
+  .dark .btn-secondary-custom {
+    background-color: transparent;
+    color: #E0E0E0;
+    border: 1px solid #333333;
+  }
+  
+  .dark .btn-secondary-custom:hover {
+    background-color: #2C2C2C;
+    color: #E0E0E0;
+  }
+  
+  /* Dark mode alerts */
+  .dark .alert-custom {
+    border: 1px solid #333333;
+    background-color: #1E1E1E;
+    color: #E0E0E0;
+  }
+  
+  /* Dark mode tables */
+  .dark table {
+    background: #1E1E1E;
+    border-color: #333333;
+  }
+  
+  .dark th {
+    background: #2C2C2C;
+    color: #E0E0E0;
+    border-color: #333333;
+  }
+  
+  .dark td {
+    border-color: #333333;
+    color: #E0E0E0;
+  }
+  
+  .dark tr:hover {
+    background: #2C2C2C;
+  }
+  
+  /* Dark mode form inputs */
+  .dark input:not([type="checkbox"]):not([type="radio"]),
+  .dark textarea,
+  .dark select {
+    background: #2C2C2C;
+    border-color: #333333;
+    color: #E0E0E0;
+  }
+  
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: #A0A0A0;
+  }
+  
+  .dark input:focus,
+  .dark select:focus,
+  .dark textarea:focus {
+    ring-color: #3B82F6;
+    border-color: #3B82F6;
+  }
+  
+  /* Dark mode dividers */
+  .dark .divide-y > * + * {
+    border-top-color: #333333;
+  }
+  
+  /* Dark mode shadows - softer for dark backgrounds */
+  .dark .shadow-sm {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  .dark .shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+  
+  .dark .shadow-lg {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Dark mode scrollbars */
+  .dark ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .dark ::-webkit-scrollbar-track {
+    background: #1E1E1E;
+  }
+  
+  .dark ::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 5px;
+  }
+  
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: #444444;
+  }
+}

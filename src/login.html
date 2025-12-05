@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Rwanda Border & Passport Management System</title>
+</head>
+<body>
+    <main class="min-h-screen bg-blue-lightest flex items-center justify-center p-4">
+        <div class="w-full max-w-4xl">
+            <div class="text-center mb-8">
+                <div class="flex justify-center items-center space-x-3 mb-4">
+                    <div class="p-3 bg-navy-medium bg-opacity-10 rounded-lg border border-navy-medium border-opacity-20">
+                        <span class="text-4xl">🛡️</span>
+                    </div>
+                </div>
+                <h1 class="text-2xl sm:text-3xl mb-2 text-navy-dark">
+                    Border & Passport Management System
+                </h1>
+                <p class="text-navy-medium">Republic of Rwanda - Secure Access Portal</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Demo Accounts -->
+                <div class="lg:col-span-1">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title flex items-center gap-2">
+                                <span>👤</span>
+                                <span>Demo Accounts</span>
+                            </h3>
+                            <p class="card-description">Use these accounts to explore the system</p>
+                        </div>
+                        <div class="card-content space-y-3">
+                            <div class="border border-blue-light rounded-lg p-3 cursor-pointer hover:bg-blue-lightest transition-colors"
+                                 onclick="fillDemoAccount('john.doe@example.com', 'user')">
+                                <div class="font-medium text-navy-dark text-sm">Customer</div>
+                                <div class="text-xs text-navy-medium font-mono">john.doe@example.com</div>
+                                <div class="badge badge-outline text-xs mt-1">Public User</div>
+                            </div>
+                            <div class="border border-blue-light rounded-lg p-3 cursor-pointer hover:bg-blue-lightest transition-colors"
+                                 onclick="fillDemoAccount('mary.smith@immigration.gov.rw', 'admin')">
+                                <div class="font-medium text-navy-dark text-sm">Immigration Officer</div>
+                                <div class="text-xs text-navy-medium font-mono">mary.smith@immigration.gov.rw</div>
+                                <div class="badge badge-outline text-xs mt-1">Staff/Admin</div>
+                            </div>
+                            <div class="border border-blue-light rounded-lg p-3 cursor-pointer hover:bg-blue-lightest transition-colors"
+                                 onclick="fillDemoAccount('admin@immigration.gov.rw', 'admin')">
+                                <div class="font-medium text-navy-dark text-sm">System Administrator</div>
+                                <div class="text-xs text-navy-medium font-mono">admin@immigration.gov.rw</div>
+                                <div class="badge badge-outline text-xs mt-1">Staff/Admin</div>
+                            </div>
+                            <div class="border border-blue-light rounded-lg p-3 cursor-pointer hover:bg-blue-lightest transition-colors"
+                                 onclick="fillDemoAccount('superadmin@immigration.gov.rw', 'admin')">
+                                <div class="font-medium text-navy-dark text-sm">Super Administrator</div>
+                                <div class="text-xs text-navy-medium font-mono">superadmin@immigration.gov.rw</div>
+                                <div class="badge badge-outline text-xs mt-1">Staff/Admin</div>
+                            </div>
+                            <div class="text-xs text-navy-medium mt-3 p-2 bg-blue-lightest rounded">
+                                💡 Password for all demo accounts: <code class="font-mono">password123</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Login/Register Form -->
+                <div class="lg:col-span-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h2 class="card-title">Access Portal</h2>
+                                    <p class="card-description">Sign in to your account or create a new one</p>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <button id="userTypeUser" onclick="setUserType('user')" 
+                                            class="px-3 py-1 rounded text-sm transition-colors bg-blue-medium text-white">
+                                        Public User
+                                    </button>
+                                    <button id="userTypeAdmin" onclick="setUserType('admin')" 
+                                            class="px-3 py-1 rounded text-sm transition-colors bg-blue-lightest text-navy-medium hover:bg-blue-light">
+                                        Staff/Admin
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="tabs">
+                                <div class="tab-list">
+                                    <button class="tab-button active" data-tab="login">Sign In</button>
+                                    <button class="tab-button" data-tab="register">Register</button>
+                                </div>
+                                
+                                <!-- Login Form -->
+                                <div id="login" class="tab-content active">
+                                    <form data-form="login" class="space-y-4">
+                                        <input type="hidden" name="userType" value="user" id="loginUserType">
+                                        <div class="form-group">
+                                            <label for="login-email" class="form-label">Email Address</label>
+                                            <input id="login-email" name="email" type="email" class="form-input" 
+                                                   placeholder="Enter your email" required>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="login-password" class="form-label">Password</label>
+                                            <div class="relative">
+                                                <input id="login-password" name="password" type="password" class="form-input" 
+                                                       placeholder="Enter your password" required>
+                                                <button type="button" onclick="togglePasswordVisibility('login-password')"
+                                                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-navy-medium hover:text-navy-dark">
+                                                    👁️
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="login-error" class="alert alert-danger hidden">
+                                            Invalid credentials. Use password123 for demo accounts.
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-primary w-full">
+                                            Sign In
+                                        </button>
+                                    </form>
+                                </div>
+                                
+                                <!-- Register Form -->
+                                <div id="register" class="tab-content">
+                                    <form data-form="register" class="space-y-4">
+                                        <input type="hidden" name="userType" value="user" id="registerUserType">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div class="form-group">
+                                                <label for="firstName" class="form-label">First Name</label>
+                                                <input id="firstName" name="firstName" class="form-input" 
+                                                       placeholder="First name" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lastName" class="form-label">Last Name</label>
+                                                <input id="lastName" name="lastName" class="form-input" 
+                                                       placeholder="Last name" required>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="register-email" class="form-label">Email Address</label>
+                                            <input id="register-email" name="email" type="email" class="form-input" 
+                                                   placeholder="Enter your email" required>
+                                        </div>
+                                        
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div class="form-group">
+                                                <label for="phone" class="form-label">Phone Number</label>
+                                                <input id="phone" name="phone" class="form-input" 
+                                                       placeholder="+250 7XX XXX XXX" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nationality" class="form-label">Nationality</label>
+                                                <select id="nationality" name="nationality" class="form-select" required>
+                                                    <option value="">Select nationality</option>
+                                                    <option value="Rwanda">Rwanda</option>
+                                                    <option value="Kenya">Kenya</option>
+                                                    <option value="Uganda">Uganda</option>
+                                                    <option value="Tanzania">Tanzania</option>
+                                                    <option value="Burundi">Burundi</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="register-password" class="form-label">Password</label>
+                                            <div class="relative">
+                                                <input id="register-password" name="password" type="password" class="form-input" 
+                                                       placeholder="Create a password" required>
+                                                <button type="button" onclick="togglePasswordVisibility('register-password')"
+                                                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-navy-medium hover:text-navy-dark">
+                                                    👁️
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="register-error" class="alert alert-danger hidden">
+                                            Registration failed. Please try again.
+                                        </div>
+                                        
+                                        <div id="register-success" class="alert alert-success hidden">
+                                            Registration successful! You can now access the system.
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-primary w-full">
+                                            Create Account
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 pt-4 border-t border-blue-light">
+                                <button onclick="app.loadPage('home')" class="btn btn-secondary w-full">
+                                    Continue as Guest (Limited Access)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentUserType = 'user';
+
+        function setUserType(type) {
+            currentUserType = type;
+            document.getElementById('loginUserType').value = type;
+            document.getElementById('registerUserType').value = type;
+            
+            const userBtn = document.getElementById('userTypeUser');
+            const adminBtn = document.getElementById('userTypeAdmin');
+            
+            if (type === 'user') {
+                userBtn.className = 'px-3 py-1 rounded text-sm transition-colors bg-blue-medium text-white';
+                adminBtn.className = 'px-3 py-1 rounded text-sm transition-colors bg-blue-lightest text-navy-medium hover:bg-blue-light';
+            } else {
+                userBtn.className = 'px-3 py-1 rounded text-sm transition-colors bg-blue-lightest text-navy-medium hover:bg-blue-light';
+                adminBtn.className = 'px-3 py-1 rounded text-sm transition-colors bg-navy-medium text-white';
+            }
+        }
+
+        function fillDemoAccount(email, type) {
+            document.getElementById('login-email').value = email;
+            document.getElementById('login-password').value = 'password123';
+            setUserType(type);
+        }
+
+        function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+            input.setAttribute('type', type);
+        }
+
+        // Initialize tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof app !== 'undefined') {
+                app.initializeTabs();
+            }
+        });
+    </script>
+</body>
+</html>

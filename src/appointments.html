@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - Rwanda Border & Passport Management System</title>
+</head>
+<body>
+    <main>
+        <div class="container py-8">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold mb-2 text-navy-dark">Book an Appointment</h1>
+                <p class="text-navy-medium">Schedule your biometric enrollment or document collection appointment</p>
+            </div>
+
+            <!-- Appointment Form -->
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Main Booking Form -->
+                    <div class="lg:col-span-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Appointment Details</h2>
+                                <p class="card-description">Select your preferred date, time, and location</p>
+                            </div>
+                            <div class="card-content">
+                                <form id="appointment-form" class="space-y-6">
+                                    <!-- Service Type -->
+                                    <div id="service-selection" class="form-section">
+                                        <!-- Will be populated by JavaScript -->
+                                    </div>
+
+                                    <!-- Personal Information -->
+                                    <div id="personal-info" class="form-section border-t border-blue-light pt-6">
+                                        <!-- Will be populated by JavaScript -->
+                                    </div>
+
+                                    <!-- Location & Date -->
+                                    <div id="location-date" class="form-section border-t border-blue-light pt-6">
+                                        <!-- Will be populated by JavaScript -->
+                                    </div>
+
+                                    <!-- Time Selection -->
+                                    <div id="time-selection" class="form-section border-t border-blue-light pt-6">
+                                        <!-- Will be populated by JavaScript -->
+                                    </div>
+
+                                    <!-- Additional Information -->
+                                    <div id="additional-info" class="form-section border-t border-blue-light pt-6">
+                                        <!-- Will be populated by JavaScript -->
+                                    </div>
+
+                                    <!-- Form Actions -->
+                                    <div class="flex flex-col sm:flex-row justify-between gap-4 pt-6 border-t border-blue-light">
+                                        <button type="button" onclick="app.loadPage('home')" class="btn btn-secondary">
+                                            ← Back to Home
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">
+                                            📅 Book Appointment
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Appointment Summary & Info -->
+                    <div class="space-y-6">
+                        <!-- Summary Card -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Appointment Summary</h3>
+                            </div>
+                            <div class="card-content" id="appointment-summary">
+                                <div class="text-center text-navy-medium py-4">
+                                    Please fill out the form to see appointment summary
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Available Centers Info -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Service Centers</h3>
+                            </div>
+                            <div class="card-content" id="centers-info">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Important Information -->
+                        <div class="card bg-blue-lightest">
+                            <div class="card-content p-4">
+                                <h4 class="font-medium mb-3">📋 What to Bring</h4>
+                                <ul class="text-sm space-y-1 text-navy-medium">
+                                    <li>• Valid government-issued ID</li>
+                                    <li>• Application reference number</li>
+                                    <li>• Payment confirmation</li>
+                                    <li>• Any additional documents requested</li>
+                                </ul>
+                                <div class="mt-4 pt-3 border-t border-blue-light">
+                                    <p class="text-sm text-navy-medium">
+                                        <strong>Note:</strong> Please arrive 15 minutes before your appointment time.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { UIComponents } from './js/components.js';
+        import { Utils } from './js/utils.js';
+
+        const serviceCenters = [
+            {
+                id: 'kigali',
+                name: 'Kigali Immigration Office',
+                address: 'KG 7 Ave, Kigali City',
+                hours: 'Mon-Fri: 8:00 AM - 5:00 PM',
+                phone: '+250 788 123 456',
+                services: ['biometric', 'collection', 'application'],
+                availability: 'high'
+            },
+            {
+                id: 'huye',
+                name: 'Huye Immigration Office', 
+                address: 'Huye District, Southern Province',
+                hours: 'Mon-Fri: 8:00 AM - 4:00 PM',
+                phone: '+250 788 123 457',
+                services: ['biometric', 'collection'],
+                availability: 'medium'
+            },
+            {
+                id: 'musanze',
+                name: 'Musanze Immigration Office',
+                address: 'Musanze District, Northern Province', 
+                hours: 'Mon-Fri: 8:00 AM - 4:00 PM',
+                phone: '+250 788 123 458',
+                services: ['biometric', 'collection'],
+                availability: 'high'
+            },
+            {
+                id: 'rubavu',
+                name: 'Rubavu Immigration Office',
+                address: 'Rubavu District, Western Province',
+                hours: 'Mon-Fri: 8:00 AM - 4:00 PM', 
+                phone: '+250 788 123 459',
+                services: ['biometric', 'collection'],
+                availability: 'low'
+            }
+        ];
+
+        const timeSlots = [
+            '8:00 AM', '8:30 AM', '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM',
+            '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM',
+            '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM'
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeAppointmentForm();
+        });
+
+        function initializeAppointmentForm() {
+            createServiceSelection();
+            createPersonalInfo();
+            createLocationDate();
+            createTimeSelection();
+            createAdditionalInfo();
+            createCentersInfo();
+
+            // Add form validation and real-time updates
+            const form = document.getElementById('appointment-form');
+            form.addEventListener('submit', handleAppointmentSubmit);
+            form.addEventListener('change', updateAppointmentSummary);
+        }
+
+        function createServiceSelection() {
+            const html = `
+                <h3 class="text-lg font-semibold mb-4 text-navy-dark">Service Type</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    ${UIComponents.createFormGroup('Appointment Type', UIComponents.createSelect('appointmentType', [
+                        { value: 'biometric', label: 'Biometric Enrollment' },
+                        { value: 'collection', label: 'Document Collection' }, 
+                        { value: 'application', label: 'Application Submission' },
+                        { value: 'consultation', label: 'Consultation' }
+                    ], true), true)}
+                    ${UIComponents.createFormGroup('Application Reference', UIComponents.createInput('applicationRef', 'text', 'e.g., PA2024001234'))}
+                </div>
+            `;
+            document.getElementById('service-selection').innerHTML = html;
+        }
+
+        function createPersonalInfo() {
+            const html = `
+                <h3 class="text-lg font-semibold mb-4 text-navy-dark">Personal Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    ${UIComponents.createFormGroup('First Name', UIComponents.createInput('firstName', 'text', 'Enter your first name', true), true)}
+                    ${UIComponents.createFormGroup('Last Name', UIComponents.createInput('lastName', 'text', 'Enter your last name', true), true)}
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    ${UIComponents.createFormGroup('Email Address', UIComponents.createInput('email', 'email', 'your.email@example.com', true), true)}
+                    ${UIComponents.createFormGroup('Phone Number', UIComponents.createInput('phone', 'tel', '+250 7XX XXX XXX', true), true)}
+                </div>
+            `;
+            document.getElementById('personal-info').innerHTML = html;
+        }
+
+        function createLocationDate() {
+            const centerOptions = serviceCenters.map(center => ({
+                value: center.id,
+                label: center.name
+            }));
+
+            // Generate next 30 days (excluding weekends)
+            const dateOptions = [];
+            const today = new Date();
+            let currentDate = new Date(today);
+            
+            while (dateOptions.length < 20) {
+                currentDate.setDate(currentDate.getDate() + 1);
+                const dayOfWeek = currentDate.getDay();
+                
+                // Skip weekends (0 = Sunday, 6 = Saturday)
+                if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+                    const dateString = currentDate.toISOString().split('T')[0];
+                    const displayDate = Utils.formatDate(currentDate, { 
+                        weekday: 'short', 
+                        month: 'short', 
+                        day: 'numeric' 
+                    });
+                    dateOptions.push({ value: dateString, label: displayDate });
+                }
+            }
+
+            const html = `
+                <h3 class="text-lg font-semibold mb-4 text-navy-dark">Location & Date</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    ${UIComponents.createFormGroup('Service Center', UIComponents.createSelect('center', centerOptions, true), true)}
+                    ${UIComponents.createFormGroup('Preferred Date', UIComponents.createSelect('date', dateOptions, true), true)}
+                </div>
+            `;
+            document.getElementById('location-date').innerHTML = html;
+        }
+
+        function createTimeSelection() {
+            const html = `
+                <h3 class="text-lg font-semibold mb-4 text-navy-dark">Time Preference</h3>
+                <div id="time-slots">
+                    <div class="text-navy-medium text-center py-4">
+                        Please select a date to see available time slots
+                    </div>
+                </div>
+            `;
+            document.getElementById('time-selection').innerHTML = html;
+
+            // Update time slots when date changes
+            const dateSelect = document.querySelector('select[name="date"]');
+            if (dateSelect) {
+                dateSelect.addEventListener('change', updateTimeSlots);
+            }
+        }
+
+        function createAdditionalInfo() {
+            const html = `
+                <h3 class="text-lg font-semibold mb-4 text-navy-dark">Additional Information</h3>
+                ${UIComponents.createFormGroup('Special Requirements', UIComponents.createTextarea('specialRequirements', 'Any accessibility needs or special requirements'))}
+                <div class="flex items-start space-x-2">
+                    <input type="checkbox" name="smsReminder" id="smsReminder" class="mt-1" checked>
+                    <label for="smsReminder" class="text-sm text-navy-medium">
+                        Send SMS reminder 24 hours before appointment
+                    </label>
+                </div>
+            `;
+            document.getElementById('additional-info').innerHTML = html;
+        }
+
+        function createCentersInfo() {
+            const html = serviceCenters.map(center => {
+                const availabilityColor = center.availability === 'high' ? 'text-green-600' : 
+                                        center.availability === 'medium' ? 'text-yellow-600' : 'text-red-600';
+                return `
+                    <div class="border-b border-blue-light pb-3 mb-3 last:border-b-0">
+                        <h4 class="font-medium">${center.name}</h4>
+                        <p class="text-sm text-navy-medium">${center.address}</p>
+                        <p class="text-sm text-navy-medium">${center.hours}</p>
+                        <p class="text-sm text-navy-medium">${center.phone}</p>
+                        <div class="text-xs ${availabilityColor} mt-1">
+                            Availability: ${center.availability.toUpperCase()}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('centers-info').innerHTML = html;
+        }
+
+        function updateTimeSlots() {
+            const dateSelect = document.querySelector('select[name="date"]');
+            const selectedDate = dateSelect?.value;
+            
+            if (!selectedDate) return;
+
+            // Simulate available/unavailable slots
+            const availableSlots = timeSlots.filter(() => Math.random() > 0.3);
+            
+            const html = `
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                    ${timeSlots.map(slot => {
+                        const isAvailable = availableSlots.includes(slot);
+                        return `
+                            <button type="button" 
+                                    class="time-slot ${isAvailable ? 'btn btn-secondary' : 'btn btn-secondary opacity-50 cursor-not-allowed'}" 
+                                    ${isAvailable ? `onclick="selectTimeSlot('${slot}')"` : 'disabled'}>
+                                ${slot}
+                            </button>
+                        `;
+                    }).join('')}
+                </div>
+                <input type="hidden" name="time" id="selected-time" required>
+                <p class="text-sm text-navy-medium mt-2">
+                    Click on an available time slot to select it
+                </p>
+            `;
+            
+            document.getElementById('time-slots').innerHTML = html;
+        }
+
+        function selectTimeSlot(time) {
+            // Remove selection from other slots
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('btn-primary');
+                slot.classList.add('btn-secondary');
+            });
+            
+            // Add selection to clicked slot
+            event.target.classList.remove('btn-secondary');
+            event.target.classList.add('btn-primary');
+            
+            // Set hidden input value
+            document.getElementById('selected-time').value = time;
+            
+            updateAppointmentSummary();
+        }
+
+        function updateAppointmentSummary() {
+            const form = document.getElementById('appointment-form');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            if (!data.appointmentType || !data.center || !data.date) {
+                document.getElementById('appointment-summary').innerHTML = `
+                    <div class="text-center text-navy-medium py-4">
+                        Please fill out the form to see appointment summary
+                    </div>
+                `;
+                return;
+            }
+            
+            const selectedCenter = serviceCenters.find(c => c.id === data.center);
+            const appointmentTypes = {
+                'biometric': 'Biometric Enrollment',
+                'collection': 'Document Collection',
+                'application': 'Application Submission',
+                'consultation': 'Consultation'
+            };
+            
+            const html = `
+                <div class="space-y-3">
+                    <div>
+                        <div class="font-medium">Service</div>
+                        <div class="text-navy-medium">${appointmentTypes[data.appointmentType] || data.appointmentType}</div>
+                    </div>
+                    ${data.firstName && data.lastName ? `
+                        <div>
+                            <div class="font-medium">Applicant</div>
+                            <div class="text-navy-medium">${data.firstName} ${data.lastName}</div>
+                        </div>
+                    ` : ''}
+                    <div>
+                        <div class="font-medium">Location</div>
+                        <div class="text-navy-medium">${selectedCenter?.name || ''}</div>
+                    </div>
+                    ${data.date ? `
+                        <div>
+                            <div class="font-medium">Date</div>
+                            <div class="text-navy-medium">${Utils.formatDate(new Date(data.date), { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</div>
+                        </div>
+                    ` : ''}
+                    ${data.time ? `
+                        <div>
+                            <div class="font-medium">Time</div>
+                            <div class="text-navy-medium">${data.time}</div>
+                        </div>
+                    ` : ''}
+                    ${data.applicationRef ? `
+                        <div>
+                            <div class="font-medium">Reference</div>
+                            <div class="text-navy-medium">${data.applicationRef}</div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            document.getElementById('appointment-summary').innerHTML = html;
+        }
+
+        function handleAppointmentSubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            // Validate required fields
+            const requiredFields = ['appointmentType', 'firstName', 'lastName', 'email', 'phone', 'center', 'date', 'time'];
+            const missingFields = requiredFields.filter(field => !data[field]);
+            
+            if (missingFields.length > 0) {
+                Utils.showNotification('Please fill in all required fields', 'warning');
+                return;
+            }
+            
+            // Show loading
+            const submitButton = e.target.querySelector('button[type="submit"]');
+            Utils.showLoading(submitButton, 'Booking...');
+            
+            // Simulate booking process
+            setTimeout(() => {
+                Utils.hideLoading(submitButton);
+                
+                // Generate appointment confirmation
+                const confirmationNumber = `APT${Date.now()}`;
+                
+                Utils.showNotification('Appointment booked successfully!', 'success');
+                
+                // Show confirmation modal or redirect
+                showConfirmation(data, confirmationNumber);
+                
+            }, 2000);
+        }
+
+        function showConfirmation(appointmentData, confirmationNumber) {
+            const selectedCenter = serviceCenters.find(c => c.id === appointmentData.center);
+            const appointmentTypes = {
+                'biometric': 'Biometric Enrollment',
+                'collection': 'Document Collection', 
+                'application': 'Application Submission',
+                'consultation': 'Consultation'
+            };
+            
+            const confirmationHtml = `
+                <div class="max-w-2xl mx-auto mt-8">
+                    <div class="card">
+                        <div class="card-content text-center p-8">
+                            <div class="text-6xl mb-4">✅</div>
+                            <h2 class="text-2xl font-bold mb-2 text-navy-dark">Appointment Confirmed!</h2>
+                            <p class="text-navy-medium mb-6">Your appointment has been successfully booked.</p>
+                            
+                            <div class="bg-blue-lightest border border-blue-light rounded-lg p-4 mb-6 text-left">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                    <div>
+                                        <div class="font-medium">Confirmation Number</div>
+                                        <div class="text-navy-medium font-mono">${confirmationNumber}</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Service</div>
+                                        <div class="text-navy-medium">${appointmentTypes[appointmentData.appointmentType]}</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Date & Time</div>
+                                        <div class="text-navy-medium">${Utils.formatDate(new Date(appointmentData.date), { month: 'short', day: 'numeric', year: 'numeric' })} at ${appointmentData.time}</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">Location</div>
+                                        <div class="text-navy-medium">${selectedCenter.name}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                                <button onclick="downloadConfirmation()" class="btn btn-primary">
+                                    📄 Download Confirmation
+                                </button>
+                                <button onclick="app.loadPage('home')" class="btn btn-secondary">
+                                    🏠 Back to Home
+                                </button>
+                            </div>
+                            
+                            <div class="mt-6 pt-4 border-t border-blue-light text-sm text-navy-medium">
+                                A confirmation email has been sent to ${appointmentData.email}.
+                                ${appointmentData.smsReminder ? ' You will receive an SMS reminder 24 hours before your appointment.' : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Replace form with confirmation
+            document.querySelector('.container').innerHTML = confirmationHtml;
+        }
+
+        function downloadConfirmation() {
+            const confirmationText = `
+                APPOINTMENT CONFIRMATION
+                Rwanda Border & Passport Management System
+                
+                Confirmation Number: APT${Date.now()}
+                
+                Thank you for booking your appointment with us.
+                Please arrive 15 minutes before your scheduled time.
+                
+                For support, contact +250 788 123 456
+            `;
+            
+            Utils.downloadFile(confirmationText, `appointment-confirmation-${Date.now()}.txt`, 'text/plain');
+        }
+
+        // Make functions globally available
+        window.selectTimeSlot = selectTimeSlot;
+        window.downloadConfirmation = downloadConfirmation;
+    </script>
+</body>
+</html>
