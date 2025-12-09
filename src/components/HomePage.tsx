@@ -5,12 +5,12 @@ import { Progress } from "./ui/progress";
 import { useAuth } from "./UserAuth";
 import { useTranslation, T } from "./utils/LanguageSelector";
 import { useTranslationWithParams, formatDate, formatCurrency } from "./utils/TranslationUtils";
-import { 
-  ArrowRight, 
-  CheckCircle, 
-  Clock, 
-  Shield, 
-  Users, 
+import {
+  ArrowRight,
+  CheckCircle,
+  Clock,
+  Shield,
+  Users,
   Zap,
   Globe,
   Fingerprint,
@@ -81,7 +81,6 @@ export function HomePage({ onPageChange }: HomePageProps) {
       {
         id: 'appointments',
         title: t('nav.appointments'),
-        description: 'Schedule biometric enrollment',
         icon: <Calendar className="h-6 w-6" />,
         color: 'bg-navy-dark',
         popular: true,
@@ -113,15 +112,7 @@ export function HomePage({ onPageChange }: HomePageProps) {
 
     const officerActions = [
       ...customerActions,
-      {
-        id: 'enroll-biometrics',
-        title: 'Biometric Enrollment',
-        description: 'Process biometric enrollments',
-        icon: <Fingerprint className="h-6 w-6" />,
-        color: 'bg-blue-medium',
-        popular: true,
-        requiresAuth: true
-      },
+
       {
         id: 'entry-exit',
         title: 'Border Control',
@@ -304,16 +295,16 @@ export function HomePage({ onPageChange }: HomePageProps) {
           {user ? `${t('system.welcome')}, ${user.firstName}` : t('home.welcome')}
         </h1>
         <p className="text-base sm:text-lg text-navy-medium max-w-3xl mx-auto mb-4 sm:mb-6 px-4">
-          {isAuthenticated 
-            ? (isCustomer 
-                ? t('home.signInBenefits')
-                : t('home.description')
-              )
+          {isAuthenticated
+            ? (isCustomer
+              ? t('home.signInBenefits')
+              : t('home.description')
+            )
             : t('home.description')
           }
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-          <Button 
+          <Button
             size="lg"
             onClick={() => onPageChange('overview')}
             className="w-full sm:w-auto bg-navy-medium hover:bg-navy-dark text-white border-0"
@@ -323,7 +314,7 @@ export function HomePage({ onPageChange }: HomePageProps) {
           </Button>
           {!isAuthenticated ? (
             <>
-              <Button 
+              <Button
                 size="lg"
                 onClick={() => onPageChange('login')}
                 className="w-full sm:w-auto bg-blue-medium hover:bg-blue-light text-white border-0"
@@ -331,8 +322,8 @@ export function HomePage({ onPageChange }: HomePageProps) {
                 <LogIn className="h-4 w-4 mr-2" />
                 {t('nav.signIn')}
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="lg"
                 onClick={() => onPageChange('apply-passport')}
                 className="w-full sm:w-auto border-blue-medium text-navy-medium hover:bg-blue-lightest hover:text-navy-dark"
@@ -342,8 +333,8 @@ export function HomePage({ onPageChange }: HomePageProps) {
               </Button>
             </>
           ) : (
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="lg"
               onClick={() => onPageChange(isCustomer ? 'apply-passport' : 'admin-dashboard')}
               className="w-full sm:w-auto border-blue-medium text-navy-medium hover:bg-blue-lightest hover:text-navy-dark"
@@ -358,13 +349,12 @@ export function HomePage({ onPageChange }: HomePageProps) {
       {/* User Status Badge */}
       <div className="flex justify-center mb-6">
         {isAuthenticated && user ? (
-          <Badge 
-            variant="outline" 
-            className={`px-4 py-2 text-sm border-2 ${
-              isCustomer ? 'bg-blue-lightest text-navy-medium border-blue-light' :
-              isAdmin || isSuperAdmin ? 'bg-navy-dark text-white border-navy-medium' :
-              'bg-blue-medium text-white border-blue-medium'
-            }`}
+          <Badge
+            variant="outline"
+            className={`px-4 py-2 text-sm border-2 ${isCustomer ? 'bg-blue-lightest text-navy-medium border-blue-light' :
+                isAdmin || isSuperAdmin ? 'bg-navy-dark text-white border-navy-medium' :
+                  'bg-blue-medium text-white border-blue-medium'
+              }`}
           >
             {isCustomer ? (
               <div className="flex items-center space-x-1">
@@ -385,8 +375,8 @@ export function HomePage({ onPageChange }: HomePageProps) {
           </Badge>
         ) : (
           <div className="flex space-x-2">
-            <Badge 
-              variant="outline" 
+            <Badge
+              variant="outline"
               className="px-4 py-2 text-sm border-2 bg-blue-lightest text-navy-medium border-blue-light"
             >
               <div className="flex items-center space-x-1">
@@ -394,7 +384,7 @@ export function HomePage({ onPageChange }: HomePageProps) {
                 <span>{t('home.guestAccess')}</span>
               </div>
             </Badge>
-            <Button 
+            <Button
               size="sm"
               onClick={() => onPageChange('login')}
               className="bg-navy-medium hover:bg-navy-dark text-white"
@@ -419,14 +409,14 @@ export function HomePage({ onPageChange }: HomePageProps) {
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2">
-                  <Button 
+                  <Button
                     onClick={() => onPageChange('login')}
                     className="bg-navy-medium hover:bg-navy-dark text-white"
                   >
                     <LogIn className="h-4 w-4 mr-2" />
                     {t('nav.signIn')}
                   </Button>
-                  <Button 
+                  <Button
                     variant="outline"
                     onClick={() => onPageChange('login')}
                     className="border-blue-medium text-navy-medium hover:bg-blue-lightest"
@@ -463,13 +453,13 @@ export function HomePage({ onPageChange }: HomePageProps) {
       <div className="mb-8 sm:mb-12">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <h2 className="text-xl sm:text-2xl text-navy-dark">
-            {isAuthenticated 
+            {isAuthenticated
               ? (isCustomer ? 'Your Services' : isAdmin || isSuperAdmin ? 'Administrative Tools' : 'Officer Tools')
               : 'Available Services'
             }
           </h2>
           <Badge variant="outline" className="text-xs sm:text-sm border-blue-medium text-navy-medium">
-            {isAuthenticated 
+            {isAuthenticated
               ? `${user?.role === 'customer' ? 'Customer' : user?.role === 'admin' ? 'Administrator' : user?.role === 'super-admin' ? 'Super Admin' : 'Officer'} Access`
               : 'Public + Login for More'
             }
@@ -477,8 +467,8 @@ export function HomePage({ onPageChange }: HomePageProps) {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {quickActions.slice(0, 9).map((action) => (
-            <Card 
-              key={action.id} 
+            <Card
+              key={action.id}
               className="cursor-pointer hover:shadow-lg transition-all duration-200 hover:-translate-y-1 border-blue-light"
               onClick={() => handleActionClick(action)}
             >
@@ -502,9 +492,9 @@ export function HomePage({ onPageChange }: HomePageProps) {
                 </div>
                 <h3 className="text-base sm:text-lg font-semibold mb-2 text-navy-dark">{action.title}</h3>
                 <p className="text-xs sm:text-sm text-navy-medium mb-4 line-clamp-2">{action.description}</p>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
+                <Button
+                  variant="outline"
+                  size="sm"
                   className="w-full border-blue-medium text-navy-medium hover:bg-blue-lightest hover:text-navy-dark"
                 >
                   {action.requiresAuth && !isAuthenticated ? 'Sign In to Access' : 'Open Service'}
@@ -553,9 +543,9 @@ export function HomePage({ onPageChange }: HomePageProps) {
                   <Progress value={100} className="h-2" />
                 </div>
               </div>
-              <Button 
-                variant="outline" 
-                size="sm" 
+              <Button
+                variant="outline"
+                size="sm"
                 className="w-full mt-4 border-blue-medium text-navy-medium hover:bg-blue-lightest hover:text-navy-dark"
               >
                 View Security Details
@@ -595,9 +585,9 @@ export function HomePage({ onPageChange }: HomePageProps) {
                   <Progress value={99.95} className="h-2" />
                 </div>
               </div>
-              <Button 
-                variant="outline" 
-                size="sm" 
+              <Button
+                variant="outline"
+                size="sm"
                 className="w-full mt-4 border-blue-medium text-navy-medium hover:bg-blue-lightest hover:text-navy-dark"
                 onClick={() => onPageChange('analytics')}
               >
@@ -614,7 +604,7 @@ export function HomePage({ onPageChange }: HomePageProps) {
           <div className="max-w-2xl mx-auto">
             <h3 className="text-lg sm:text-xl mb-4 text-navy-dark">Need Help?</h3>
             <p className="text-navy-medium mb-4 sm:mb-6 text-sm sm:text-base">
-              Our support team is available 24/7 to assist with applications, appointments, and system access. 
+              Our support team is available 24/7 to assist with applications, appointments, and system access.
               {!isAuthenticated && " Sign in for personalized support and faster resolution."}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center text-sm">

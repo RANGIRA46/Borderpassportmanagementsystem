@@ -3,18 +3,18 @@ import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { Progress } from "./ui/progress";
 import { useAuth } from "./UserAuth";
-import { 
-  Activity, 
-  AlertTriangle, 
-  BarChart3, 
-  Clock, 
-  Database, 
-  FileText, 
-  Fingerprint, 
-  Globe, 
-  Shield, 
-  TrendingUp, 
-  Users, 
+import {
+  Activity,
+  AlertTriangle,
+  BarChart3,
+  Clock,
+  Database,
+  FileText,
+  Fingerprint,
+  Globe,
+  Shield,
+  TrendingUp,
+  Users,
   Zap,
   ArrowRight,
   Eye,
@@ -55,15 +55,7 @@ export function AdminHomePage({ onPageChange }: AdminHomePageProps) {
       timestamp: '2 minutes ago',
       action: 'Review Required'
     },
-    {
-      id: 'AL002',
-      type: 'system',
-      priority: 'medium',
-      title: 'Biometric System Latency',
-      description: 'Response time increased to 3.2s at Gatuna Border',
-      timestamp: '15 minutes ago',
-      action: 'Monitor'
-    },
+
     {
       id: 'AL003',
       type: 'operational',
@@ -130,14 +122,7 @@ export function AdminHomePage({ onPageChange }: AdminHomePageProps) {
         color: 'bg-yellow-600',
         urgent: true
       },
-      {
-        id: 'enroll-biometrics',
-        title: 'Biometric Processing',
-        description: 'Process pending biometric enrollments',
-        icon: <Fingerprint className="h-6 w-6" />,
-        color: 'bg-blue-medium',
-        urgent: false
-      },
+
       {
         id: 'interpol',
         title: 'INTERPOL Database',
@@ -191,13 +176,7 @@ export function AdminHomePage({ onPageChange }: AdminHomePageProps) {
       type: 'success',
       user: 'M. Smith'
     },
-    {
-      time: '14:25',
-      action: 'Biometric Enrolled',
-      details: 'New biometric enrollment completed at Gatuna Border Post',
-      type: 'info',
-      user: 'R. Johnson'
-    },
+
     {
       time: '14:20',
       action: 'Payment Processed',
@@ -249,8 +228,8 @@ export function AdminHomePage({ onPageChange }: AdminHomePageProps) {
               </p>
             </div>
             <div className="flex items-center space-x-4">
-              <Badge 
-                variant="outline" 
+              <Badge
+                variant="outline"
                 className="px-3 py-1 text-sm border-blue-light text-blue-light bg-navy-medium/50"
               >
                 <Activity className="h-3 w-3 mr-1" />
@@ -258,16 +237,16 @@ export function AdminHomePage({ onPageChange }: AdminHomePageProps) {
               </Badge>
               <div className="text-right text-sm">
                 <div className="text-blue-lightest font-medium">
-                  {new Date().toLocaleDateString('en-US', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
+                  {new Date().toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
                   })}
                 </div>
                 <div className="text-blue-light">
-                  {new Date().toLocaleTimeString('en-US', { 
-                    hour: '2-digit', 
+                  {new Date().toLocaleTimeString('en-US', {
+                    hour: '2-digit',
                     minute: '2-digit',
                     timeZoneName: 'short'
                   })}
@@ -292,12 +271,11 @@ export function AdminHomePage({ onPageChange }: AdminHomePageProps) {
                       <div className="flex-1">
                         <div className="flex items-center space-x-2 mb-1">
                           <h4 className="font-semibold text-blue-lightest">{alert.title}</h4>
-                          <Badge 
-                            className={`text-xs ${
-                              alert.priority === 'high' ? 'bg-red-500 text-white' : 
-                              alert.priority === 'medium' ? 'bg-yellow-500 text-black' : 
-                              'bg-blue-500 text-white'
-                            }`}
+                          <Badge
+                            className={`text-xs ${alert.priority === 'high' ? 'bg-red-500 text-white' :
+                                alert.priority === 'medium' ? 'bg-yellow-500 text-black' :
+                                  'bg-blue-500 text-white'
+                              }`}
                           >
                             {alert.priority.toUpperCase()}
                           </Badge>
@@ -305,8 +283,8 @@ export function AdminHomePage({ onPageChange }: AdminHomePageProps) {
                         <p className="text-blue-light text-sm mb-2">{alert.description}</p>
                         <div className="text-xs text-blue-light">{alert.timestamp}</div>
                       </div>
-                      <Button 
-                        size="sm" 
+                      <Button
+                        size="sm"
                         className="bg-blue-light hover:bg-blue-medium text-navy-dark"
                         onClick={() => onPageChange('alerts')}
                       >
@@ -331,12 +309,10 @@ export function AdminHomePage({ onPageChange }: AdminHomePageProps) {
                 <div className="text-2xl sm:text-3xl font-bold mb-1 text-blue-lightest">{indicator.value}</div>
                 <div className="text-xs sm:text-sm text-blue-light mb-2">{indicator.label}</div>
                 <div className="flex items-center justify-center space-x-1">
-                  <TrendingUp className={`h-3 w-3 ${
-                    indicator.trend === 'up' ? 'text-green-400' : 'text-red-400'
-                  }`} />
-                  <span className={`text-xs font-medium ${
-                    indicator.trend === 'up' ? 'text-green-400' : 'text-red-400'
-                  }`}>
+                  <TrendingUp className={`h-3 w-3 ${indicator.trend === 'up' ? 'text-green-400' : 'text-red-400'
+                    }`} />
+                  <span className={`text-xs font-medium ${indicator.trend === 'up' ? 'text-green-400' : 'text-red-400'
+                    }`}>
                     {indicator.change}
                   </span>
                 </div>
@@ -353,8 +329,8 @@ export function AdminHomePage({ onPageChange }: AdminHomePageProps) {
             <h2 className="text-xl font-semibold text-blue-lightest mb-4">Priority Actions</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {quickActions.map((action) => (
-                <Card 
-                  key={action.id} 
+                <Card
+                  key={action.id}
                   className="bg-navy-medium border-blue-medium cursor-pointer hover:bg-navy-medium/80 transition-all duration-200 hover:-translate-y-1"
                   onClick={() => onPageChange(action.id)}
                 >
@@ -369,9 +345,9 @@ export function AdminHomePage({ onPageChange }: AdminHomePageProps) {
                     </div>
                     <h3 className="text-base sm:text-lg font-semibold mb-2 text-blue-lightest">{action.title}</h3>
                     <p className="text-xs sm:text-sm text-blue-light mb-4">{action.description}</p>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
+                    <Button
+                      variant="outline"
+                      size="sm"
                       className="w-full border-blue-light text-blue-light hover:bg-blue-light hover:text-navy-dark"
                     >
                       Access Tool
@@ -405,9 +381,9 @@ export function AdminHomePage({ onPageChange }: AdminHomePageProps) {
                     </div>
                   ))}
                 </div>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
+                <Button
+                  variant="outline"
+                  size="sm"
                   className="w-full mt-4 border-blue-light text-blue-light hover:bg-blue-light hover:text-navy-dark"
                 >
                   View All Activity
@@ -436,13 +412,7 @@ export function AdminHomePage({ onPageChange }: AdminHomePageProps) {
                   </div>
                   <Progress value={100} className="h-2 bg-navy-dark" />
                 </div>
-                <div>
-                  <div className="flex justify-between mb-2 text-sm">
-                    <span className="text-blue-light">Biometric Systems</span>
-                    <span className="text-green-400 font-medium">98%</span>
-                  </div>
-                  <Progress value={98} className="h-2 bg-navy-dark" />
-                </div>
+
                 <div>
                   <div className="flex justify-between mb-2 text-sm">
                     <span className="text-blue-light">Border Terminals</span>
@@ -486,9 +456,9 @@ export function AdminHomePage({ onPageChange }: AdminHomePageProps) {
                   <Progress value={systemMetrics.systemUptime} className="h-2 bg-navy-dark" />
                 </div>
               </div>
-              <Button 
-                variant="outline" 
-                size="sm" 
+              <Button
+                variant="outline"
+                size="sm"
                 className="w-full mt-4 border-blue-light text-blue-light hover:bg-blue-light hover:text-navy-dark"
                 onClick={() => onPageChange('analytics')}
               >

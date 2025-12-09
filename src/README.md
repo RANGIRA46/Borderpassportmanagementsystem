@@ -2,11 +2,12 @@
 
 ## 🌍 Overview
 
-A comprehensive digital platform for national border and passport management that provides citizens and foreigners with secure online services for passport/visa applications, biometric enrollment, digital border passes, and real-time border management. The system integrates with international watchlists including INTERPOL and supports multi-agency operations with advanced analytics and security features.
+A comprehensive digital platform for national border and passport management that provides citizens and foreigners with secure online services for passport/visa applications, digital border passes, and real-time border management. The system integrates with international watchlists including INTERPOL and supports multi-agency operations with advanced analytics and security features.
 
 ## 🚀 Key Features
 
 ### Security & Compliance
+
 - **Advanced Security**: PKI encryption, mutual TLS, AES-256 encryption
 - **Privacy Protection**: GDPR/privacy-compliant data handling
 - **WCAG/ADA Compliance**: Full accessibility support
@@ -14,15 +15,17 @@ A comprehensive digital platform for national border and passport management tha
 - **Multi-factor Authentication**: Biometric and traditional authentication methods
 
 ### Multi-Language Support
+
 - **4 Languages**: English, French, Kiswahili, Kinyarwanda
 - **Complete Translation**: All interface elements, forms, and content
 - **Real-time Switching**: Instant language change without page reload
 - **Cultural Adaptation**: Localized date formats, currencies, and conventions
 
 ### User Management & Roles
+
 - **Role-Based Access Control (RBAC)**:
   - **Customer**: Basic application and status checking
-  - **Officer**: Border operations and biometric enrollment
+  - **Officer**: Border operations and verification
   - **Admin**: System administration and analytics
   - **Super-Admin**: Full system control and user management
 
@@ -31,12 +34,14 @@ A comprehensive digital platform for national border and passport management tha
 ### 🏠 Public & Customer Pages
 
 #### **Home Dashboard**
+
 - Welcome interface with service overview
 - Quick access to popular services
 - System announcements and updates
 - Personal application status summary
 
 #### **Service Applications**
+
 1. **Passport Application**
    - New passport applications
    - Passport renewal
@@ -68,9 +73,10 @@ A comprehensive digital platform for national border and passport management tha
    - Diplomatic laissez-passer
 
 #### **Support Services**
+
 1. **Appointment Booking**
    - Online appointment scheduling
-   - Biometric center appointments
+
    - Document submission appointments
    - Interview scheduling
 
@@ -94,11 +100,12 @@ A comprehensive digital platform for national border and passport management tha
 
 5. **Digital Border Pass**
    - QR code generation
-   - Biometric verification
+
    - Cross-border validity
    - Offline capability
 
 #### **Specialized Services**
+
 1. **CEPGL Services**
    - Economic Community integration
    - Regional travel facilitation
@@ -125,6 +132,7 @@ A comprehensive digital platform for national border and passport management tha
 ### 🛡️ Officer & Border Operations
 
 #### **Border Management**
+
 1. **Entry/Exit Logging**
    - Real-time passenger processing
    - Automated data capture
@@ -138,27 +146,15 @@ A comprehensive digital platform for national border and passport management tha
    - Watch list integration
 
 3. **Identity Verification**
-   - Biometric matching
+
    - Document authentication
    - Real-time verification
    - Fraud detection
 
-#### **Biometric Services**
-1. **Biometric Enrollment**
-   - Fingerprint capture
-   - Facial recognition
-   - Iris scanning
-   - Quality assurance
-
-2. **Biometric Centers**
-   - Center management
-   - Equipment monitoring
-   - Capacity planning
-   - Performance metrics
-
 ### 🔧 Administrative Functions
 
 #### **System Administration**
+
 1. **Admin Dashboard**
    - System overview
    - Performance metrics
@@ -192,6 +188,7 @@ A comprehensive digital platform for national border and passport management tha
 ## 🛠️ Technical Architecture
 
 ### Frontend Technologies
+
 - **React 18**: Modern component-based architecture
 - **TypeScript**: Type-safe development
 - **Tailwind CSS v4**: Custom design system
@@ -199,12 +196,14 @@ A comprehensive digital platform for national border and passport management tha
 - **Motion**: Smooth animations and transitions
 
 ### Backend Infrastructure
+
 - **Supabase**: Backend-as-a-Service platform
 - **PostgreSQL**: Robust database management
 - **Edge Functions**: Serverless API endpoints
 - **Real-time Updates**: Live data synchronization
 
 ### Security Features
+
 - **End-to-End Encryption**: AES-256 encryption
 - **PKI Infrastructure**: Public key cryptography
 - **Mutual TLS**: Certificate-based authentication
@@ -212,6 +211,7 @@ A comprehensive digital platform for national border and passport management tha
 - **Audit Logging**: Comprehensive activity tracking
 
 ### Integration Capabilities
+
 - **INTERPOL API**: International police database
 - **Biometric Systems**: Multi-modal biometric support
 - **Payment Gateways**: Multiple payment processors
@@ -221,6 +221,7 @@ A comprehensive digital platform for national border and passport management tha
 ## 🎨 Design System
 
 ### Color Palette
+
 - **Navy Dark** (#071f35): Primary brand color
 - **Navy Medium** (#24496b): Secondary actions
 - **Blue Medium** (#446d92): Accent elements
@@ -228,12 +229,14 @@ A comprehensive digital platform for national border and passport management tha
 - **Blue Lightest** (#f7fafe): Main background
 
 ### Theme Support
+
 - **Customer Theme**: Light, friendly, approachable design
 - **Admin Theme**: Dark, professional, data-focused interface
 - **Night Mode**: Optimized for low-light environments
 - **High Contrast**: Accessibility-enhanced visibility
 
 ### Responsive Design
+
 - **Mobile First**: Optimized for mobile devices
 - **Tablet Support**: Enhanced tablet experience
 - **Desktop Full**: Complete desktop functionality
@@ -242,12 +245,14 @@ A comprehensive digital platform for national border and passport management tha
 ## 🌐 Multi-Agency Integration
 
 ### Government Agencies
+
 - **Immigration Services**: Passport and visa processing
 - **Border Control**: Entry/exit management
 - **Security Services**: Threat assessment
 - **Revenue Authority**: Tax and customs integration
 
 ### International Organizations
+
 - **INTERPOL**: Global police cooperation
 - **ICAO**: Aviation security standards
 - **Regional Bodies**: CEPGL, EAC integration
@@ -256,12 +261,14 @@ A comprehensive digital platform for national border and passport management tha
 ## 📊 Analytics & Reporting
 
 ### Real-time Dashboards
+
 - **Application Statistics**: Processing metrics
 - **Border Analytics**: Crossing patterns
 - **Demographic Analysis**: Population insights
 - **Performance Monitoring**: System health
 
 ### Business Intelligence
+
 - **Trend Analysis**: Historical data patterns
 - **Predictive Modeling**: Forecasting capabilities
 - **Risk Assessment**: Security evaluations
@@ -270,12 +277,14 @@ A comprehensive digital platform for national border and passport management tha
 ## 🔒 Security & Privacy
 
 ### Data Protection
+
 - **Privacy by Design**: Built-in privacy protection
 - **Data Minimization**: Collect only necessary data
 - **Encryption at Rest**: Secure data storage
 - **Secure Transmission**: Encrypted data transfer
 
 ### Compliance Standards
+
 - **GDPR Compliance**: European privacy standards
 - **ISO 27001**: Information security management
 - **ICAO Standards**: Aviation security protocols
@@ -284,12 +293,14 @@ A comprehensive digital platform for national border and passport management tha
 ## 🚀 Deployment & Operations
 
 ### System Requirements
+
 - **High Availability**: 99.9% uptime guarantee
 - **Scalability**: Auto-scaling infrastructure
 - **Disaster Recovery**: Comprehensive backup systems
 - **Performance Monitoring**: Real-time system health
 
 ### Support & Maintenance
+
 - **24/7 Monitoring**: Continuous system surveillance
 - **Regular Updates**: Feature enhancements and security patches
 - **Technical Support**: Multi-tier support system
@@ -298,12 +309,14 @@ A comprehensive digital platform for national border and passport management tha
 ## 📈 Future Enhancements
 
 ### Planned Features
+
 - **AI-Powered Risk Assessment**: Machine learning integration
 - **Blockchain Document Verification**: Immutable document records
 - **Advanced Biometrics**: Voice and gait recognition
 - **Mobile Native Apps**: iOS and Android applications
 
 ### Integration Roadmap
+
 - **Additional Countries**: Regional expansion
 - **New Payment Methods**: Cryptocurrency and digital wallets
 - **IoT Integration**: Smart border infrastructure
@@ -312,15 +325,17 @@ A comprehensive digital platform for national border and passport management tha
 ## 📞 Support & Contact
 
 ### Technical Support
-- **Email**: support@borderpass.gov
+
+- **Email**: <support@borderpass.gov>
 - **Phone**: +250-xxx-xxx-xxx
 - **Live Chat**: Available 24/7
 - **Documentation**: Comprehensive user guides
 
 ### Emergency Contacts
+
 - **Border Emergency**: +250-xxx-xxx-xxx
-- **Security Incidents**: security@borderpass.gov
-- **System Issues**: technical@borderpass.gov
+- **Security Incidents**: <security@borderpass.gov>
+- **System Issues**: <technical@borderpass.gov>
 
 ---
 
@@ -332,6 +347,7 @@ A comprehensive digital platform for national border and passport management tha
 ## 🏷️ Component Library
 
 ### Core Components
+
 - **Navigation Systems**: Customer and Admin navigation
 - **Form Components**: Advanced form handling with validation
 - **Data Visualization**: Charts, graphs, and analytics displays
@@ -339,6 +355,7 @@ A comprehensive digital platform for national border and passport management tha
 - **Communication**: Notifications, alerts, and messaging
 
 ### Utility Components
+
 - **Country Selector**: Global country selection with search
 - **Date Picker**: Enhanced calendar with localization
 - **Document Scanner**: OCR and auto-fill capabilities
@@ -346,6 +363,7 @@ A comprehensive digital platform for national border and passport management tha
 - **Data Exporter**: Report generation and data export
 
 ### Integration Components
+
 - **INTERPOL Connector**: Real-time database queries
 - **Payment Gateway**: Multi-provider payment processing
 - **Biometric SDK**: Multi-modal biometric integration

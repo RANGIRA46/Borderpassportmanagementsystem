@@ -28,7 +28,7 @@ export const DEMO_USERS = [
         lastName: 'Smith',
         role: 'officer',
         department: 'Immigration Services',
-        permissions: ['process_applications', 'verify_identity', 'access_biometrics', 'view_records'],
+        permissions: ['process_applications', 'view_records'],
         createdAt: new Date('2024-01-10'),
         lastLogin: new Date('2024-01-21'),
         status: 'active'
@@ -82,7 +82,7 @@ export const SERVICE_FEES = {
     'passport-express': { amount: 100000, currency: 'RWF', description: 'Expedited processing (24-48h)' },
     'visa-tourist': { amount: 75000, currency: 'RWF', description: 'Tourist/Business visa' },
     'visa-transit': { amount: 30000, currency: 'RWF', description: 'Transit visa' },
-    'biometric-enrollment': { amount: 25000, currency: 'RWF', description: 'Biometric data capture' },
+
     'document-replacement': { amount: 30000, currency: 'RWF', description: 'Lost/damaged document replacement' },
     'border-pass': { amount: 40000, currency: 'RWF', description: 'Digital border pass (1 year)' }
 };
@@ -139,10 +139,10 @@ export const NAVIGATION_ITEMS = {
     customer: [
         { id: 'home', label: 'Home', icon: '🏠', type: 'single' },
         { id: 'overview', label: 'About', icon: '📋', type: 'single' },
-        { 
-            id: 'services', 
-            label: 'Services', 
-            icon: '🎯', 
+        {
+            id: 'services',
+            label: 'Services',
+            icon: '🎯',
             type: 'dropdown',
             items: [
                 { id: 'apply-passport', label: 'Apply for Passport', icon: '📘' },
@@ -151,10 +151,10 @@ export const NAVIGATION_ITEMS = {
                 { id: 'status', label: 'Check Status', icon: '🔍' }
             ]
         },
-        { 
-            id: 'support', 
-            label: 'Support', 
-            icon: '💬', 
+        {
+            id: 'support',
+            label: 'Support',
+            icon: '💬',
             type: 'dropdown',
             items: [
                 { id: 'documents', label: 'Upload Documents', icon: '📎' },
@@ -165,10 +165,10 @@ export const NAVIGATION_ITEMS = {
     ],
     admin: [
         { id: 'home', label: 'Dashboard', icon: '📊', type: 'single' },
-        { 
-            id: 'processing', 
-            label: 'Processing', 
-            icon: '⚙️', 
+        {
+            id: 'processing',
+            label: 'Processing',
+            icon: '⚙️',
             type: 'dropdown',
             items: [
                 { id: 'apply-passport', label: 'Passport Applications', icon: '📘' },
@@ -177,10 +177,10 @@ export const NAVIGATION_ITEMS = {
                 { id: 'payments', label: 'Payment Processing', icon: '💳' }
             ]
         },
-        { 
-            id: 'border-control', 
-            label: 'Border Control', 
-            icon: '🛂', 
+        {
+            id: 'border-control',
+            label: 'Border Control',
+            icon: '🛂',
             type: 'dropdown',
             items: [
                 { id: 'entry-exit', label: 'Entry/Exit Logging', icon: '🚪' },
@@ -188,21 +188,11 @@ export const NAVIGATION_ITEMS = {
                 { id: 'status', label: 'Status Verification', icon: '🔍' }
             ]
         },
-        { 
-            id: 'biometrics', 
-            label: 'Biometrics', 
-            icon: '👆', 
-            type: 'dropdown',
-            items: [
-                { id: 'enroll-biometrics', label: 'Enrollment', icon: '👆' },
-                { id: 'verify-identity', label: 'Verification', icon: '🔐' },
-                { id: 'biometric-centers', label: 'Centers', icon: '👥' }
-            ]
-        },
-        { 
-            id: 'security', 
-            label: 'Security', 
-            icon: '🔒', 
+
+        {
+            id: 'security',
+            label: 'Security',
+            icon: '🔒',
             type: 'dropdown',
             items: [
                 { id: 'interpol', label: 'INTERPOL', icon: '🌐' },
@@ -217,22 +207,22 @@ export const NAVIGATION_ITEMS = {
 
 export const PAGE_ACCESS = {
     public: [
-        'home', 'overview', 'apply-passport', 'apply-visa', 
+        'home', 'overview', 'apply-passport', 'apply-visa',
         'appointments', 'documents', 'payments', 'status', 'login'
     ],
     customer: [
-        'home', 'overview', 'apply-passport', 'apply-visa', 
+        'home', 'overview', 'apply-passport', 'apply-visa',
         'appointments', 'documents', 'payments', 'status', 'login', 'border-pass'
     ],
     officer: [
-        'home', 'overview', 'apply-passport', 'apply-visa', 
+        'home', 'overview', 'apply-passport', 'apply-visa',
         'appointments', 'documents', 'payments', 'status', 'login', 'border-pass',
-        'records', 'entry-exit', 'enroll-biometrics', 'verify-identity', 'biometric-centers'
+        'records', 'entry-exit'
     ],
     admin: [
-        'home', 'overview', 'apply-passport', 'apply-visa', 
+        'home', 'overview', 'apply-passport', 'apply-visa',
         'appointments', 'documents', 'payments', 'status', 'login', 'border-pass',
-        'records', 'entry-exit', 'enroll-biometrics', 'verify-identity', 'biometric-centers',
+        'records', 'entry-exit',
         'admin-dashboard', 'analytics', 'alerts', 'agencies', 'interpol'
     ]
 };

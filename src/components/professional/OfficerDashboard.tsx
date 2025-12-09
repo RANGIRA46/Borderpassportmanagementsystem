@@ -4,12 +4,12 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Input } from "../ui/input";
-import { 
-  Shield, 
-  Users, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Clock, 
+import {
+  Shield,
+  Users,
+  AlertTriangle,
+  CheckCircle2,
+  Clock,
   Search,
   Filter,
   Download,
@@ -36,7 +36,7 @@ interface TravelerRecord {
   riskLevel: 'low' | 'medium' | 'high' | 'critical';
   arrivalTime: string;
   gate: string;
-  biometricStatus: 'pending' | 'verified' | 'failed';
+
 }
 
 const mockTravelers: TravelerRecord[] = [
@@ -50,7 +50,7 @@ const mockTravelers: TravelerRecord[] = [
     riskLevel: 'low',
     arrivalTime: '14:30',
     gate: 'A12',
-    biometricStatus: 'verified'
+
   },
   {
     id: 'T002',
@@ -62,7 +62,7 @@ const mockTravelers: TravelerRecord[] = [
     riskLevel: 'low',
     arrivalTime: '14:30',
     gate: 'A12',
-    biometricStatus: 'verified'
+
   },
   {
     id: 'T003',
@@ -74,7 +74,7 @@ const mockTravelers: TravelerRecord[] = [
     riskLevel: 'medium',
     arrivalTime: '15:15',
     gate: 'B05',
-    biometricStatus: 'pending'
+
   },
   {
     id: 'T004',
@@ -86,7 +86,7 @@ const mockTravelers: TravelerRecord[] = [
     riskLevel: 'low',
     arrivalTime: '16:00',
     gate: 'C08',
-    biometricStatus: 'verified'
+
   }
 ];
 
@@ -274,10 +274,7 @@ export function OfficerDashboard() {
               <AlertTriangle className="h-4 w-4" />
               Alerts
             </TabsTrigger>
-            <TabsTrigger value="verification" className="gap-2 data-[state=active]:bg-[#262626] data-[state=active]:text-white">
-              <Fingerprint className="h-4 w-4" />
-              Verification
-            </TabsTrigger>
+
           </TabsList>
 
           <TabsContent value="overview" className="space-y-4">
@@ -323,7 +320,7 @@ export function OfficerDashboard() {
                           <div className="h-12 w-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold">
                             {traveler.name.split(' ').map(n => n[0]).join('')}
                           </div>
-                          
+
                           <div className="flex-1">
                             <div className="flex items-center gap-3">
                               <h4 className="font-semibold text-white">
@@ -336,7 +333,7 @@ export function OfficerDashboard() {
                                 {traveler.status}
                               </Badge>
                             </div>
-                            
+
                             <div className="flex items-center gap-6 mt-1 text-sm text-gray-400">
                               <span className="flex items-center gap-1">
                                 <FileText className="h-3 w-3" />
@@ -359,16 +356,8 @@ export function OfficerDashboard() {
                         </div>
 
                         <div className="flex items-center gap-2">
-                          {traveler.biometricStatus === 'verified' && (
-                            <CheckCircle2 className="h-5 w-5 text-green-400" />
-                          )}
-                          {traveler.biometricStatus === 'pending' && (
-                            <Clock className="h-5 w-5 text-orange-400" />
-                          )}
-                          {traveler.biometricStatus === 'failed' && (
-                            <XCircle className="h-5 w-5 text-red-400" />
-                          )}
-                          
+
+
                           <Button size="sm" variant="outline" className="gap-2 opacity-0 group-hover:opacity-100 transition-opacity border-[#262626] text-gray-300">
                             <Eye className="h-4 w-4" />
                             Details
@@ -410,19 +399,7 @@ export function OfficerDashboard() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="verification">
-            <Card className="border-[#262626] bg-[#1a1a1a]">
-              <CardHeader>
-                <CardTitle className="text-white">Identity Verification</CardTitle>
-                <CardDescription className="text-gray-400">Biometric and document verification</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-12 text-gray-400">
-                  Verification interface
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+
         </Tabs>
       </div>
     </div>

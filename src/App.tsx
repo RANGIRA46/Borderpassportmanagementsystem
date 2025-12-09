@@ -13,7 +13,7 @@ import { VisaApplication } from "./components/VisaApplication";
 import { StatusChecker } from "./components/StatusChecker";
 import { BorderRecords } from "./components/BorderRecords";
 import { AdminPanel } from "./components/AdminPanel";
-import { BiometricEnrollment } from "./components/BiometricEnrollment";
+
 import { DigitalBorderPass } from "./components/DigitalBorderPass";
 import { EnhancedAnalyticsDashboard } from "./components/EnhancedAnalyticsDashboard";
 import { AppointmentBooking } from "./components/AppointmentBooking";
@@ -21,8 +21,7 @@ import { DocumentUpload } from "./components/DocumentUpload";
 import { PaymentCenter } from "./components/PaymentCenter";
 import { EntryExitLogging } from "./components/EntryExitLogging";
 import { InterpolIntegration } from "./components/InterpolIntegration";
-import { IdentityVerification } from "./components/IdentityVerification";
-import { BiometricCenters } from "./components/BiometricCenters";
+
 import { AlertsWatchlist } from "./components/AlertsWatchlist";
 import { MultiAgencyAccess } from "./components/MultiAgencyAccess";
 import { DGIEServices } from "./components/DGIEServices";
@@ -101,8 +100,8 @@ function AppContent() {
     ];
     
     const officerPages = [
-      ...customerPages, 'records', 'entry-exit', 'enroll-biometrics', 
-      'verify-identity', 'biometric-centers', 'traveler-dashboard', 
+      ...customerPages, 'records', 'entry-exit', 
+      'traveler-dashboard', 
       'passenger-info', 'pre-arrival', 'content-management'
     ];
     
@@ -202,13 +201,7 @@ function AppContent() {
       case 'interpol':
         return <InterpolIntegration />;
       
-      // Biometrics (Officer+ access)
-      case 'enroll-biometrics':
-        return <BiometricEnrollment />;
-      case 'verify-identity':
-        return <IdentityVerification />;
-      case 'biometric-centers':
-        return <BiometricCenters />;
+
       
       // Officer Features
       case 'traveler-dashboard':

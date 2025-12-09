@@ -3,13 +3,13 @@ import { DashboardGreeting } from "./modern/DashboardGreeting";
 import { ServiceCard } from "./modern/ServiceCard";
 import { useAuth } from "./UserAuth";
 import { useTranslationWithParams } from "./utils/TranslationUtils";
-import { 
-  FileText, 
-  Globe, 
-  Ticket, 
-  Shield, 
-  MapPin, 
-  Users, 
+import {
+  FileText,
+  Globe,
+  Ticket,
+  Shield,
+  MapPin,
+  Users,
   Plane,
   Calendar,
   Search,
@@ -101,7 +101,7 @@ export function ModernHomePage({ onPageChange }: ModernHomePageProps) {
     {
       id: 'appointments',
       title: t('nav.appointments', {}, 'Book Appointment'),
-      description: 'Schedule biometric enrollment',
+      description: 'Schedule appointment',
       icon: <Calendar className="h-5 w-5" />,
       color: "text-purple-600 dark:text-purple-400"
     },
