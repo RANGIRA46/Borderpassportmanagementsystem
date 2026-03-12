@@ -7,12 +7,12 @@ import { Badge } from "./ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Alert, AlertDescription } from "./ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import {
-  CreditCard,
-  Smartphone,
-  Building,
-  CheckCircle,
-  Clock,
+import { 
+  CreditCard, 
+  Smartphone, 
+  Building, 
+  CheckCircle, 
+  Clock, 
   AlertCircle,
   Receipt,
   Download,
@@ -116,26 +116,35 @@ export function PaymentCenter() {
       applicationRef: 'VA2024005678',
       description: 'Visa Application Fee'
     },
-
+    {
+      id: 'TXN001236',
+      amount: 25000,
+      currency: 'RWF',
+      method: 'Airtel Money',
+      status: 'completed',
+      date: new Date('2024-01-19'),
+      applicationRef: 'BP2024009876',
+      description: 'Biometric Appointment Fee'
+    }
   ];
 
   const serviceFees = [
     { service: 'Passport Application', amount: 50000, currency: 'RWF', description: 'Standard passport processing' },
     { service: 'Express Passport', amount: 100000, currency: 'RWF', description: 'Expedited processing (24-48h)' },
     { service: 'Visa Application', amount: 75000, currency: 'RWF', description: 'Tourist/Business visa' },
-
+    { service: 'Biometric Enrollment', amount: 25000, currency: 'RWF', description: 'Biometric data capture' },
     { service: 'Document Replacement', amount: 30000, currency: 'RWF', description: 'Lost/damaged document replacement' }
   ];
 
   const handlePayment = async () => {
     setProcessing(true);
-
+    
     // Simulate payment processing
     await new Promise(resolve => setTimeout(resolve, 3000));
-
+    
     // Mock payment success
     alert(`Payment successful!\n\nTransaction ID: TXN${Date.now()}\nAmount: ${amount} RWF\nMethod: ${paymentMethods.find(m => m.id === selectedMethod)?.name}\n\nYou will receive an SMS confirmation shortly.`);
-
+    
     setProcessing(false);
     setAmount('');
     setApplicationRef('');
@@ -214,10 +223,11 @@ export function PaymentCenter() {
                       {paymentMethods.map((method) => (
                         <div
                           key={method.id}
-                          className={`border rounded-lg p-3 cursor-pointer transition-all ${selectedMethod === method.id
+                          className={`border rounded-lg p-3 cursor-pointer transition-all ${
+                            selectedMethod === method.id
                               ? 'border-navy-medium bg-blue-lightest'
                               : 'border-blue-light hover:border-blue-medium'
-                            } ${!method.available ? 'opacity-50 cursor-not-allowed' : ''}`}
+                          } ${!method.available ? 'opacity-50 cursor-not-allowed' : ''}`}
                           onClick={() => method.available && setSelectedMethod(method.id)}
                         >
                           <div className="flex items-center space-x-3">
@@ -249,7 +259,7 @@ export function PaymentCenter() {
                     </div>
                   )}
 
-                  <Button
+                  <Button 
                     onClick={handlePayment}
                     disabled={!selectedMethod || !amount || !applicationRef || processing}
                     className="w-full bg-navy-medium hover:bg-navy-dark text-white"
@@ -286,9 +296,9 @@ export function PaymentCenter() {
                     <div className="flex justify-between text-sm">
                       <span className="text-navy-medium">Processing Fee:</span>
                       <span className="text-navy-dark">
-                        {selectedMethod && amount ?
-                          paymentMethods.find(m => m.id === selectedMethod)?.fees === 'Free' ?
-                            'Free' :
+                        {selectedMethod && amount ? 
+                          paymentMethods.find(m => m.id === selectedMethod)?.fees === 'Free' ? 
+                            'Free' : 
                             `${Math.ceil(parseInt(amount) * 0.015).toLocaleString()} RWF`
                           : '0 RWF'
                         }
@@ -298,7 +308,7 @@ export function PaymentCenter() {
                       <div className="flex justify-between font-medium">
                         <span className="text-navy-dark">Total:</span>
                         <span className="text-navy-dark">
-                          {selectedMethod && amount ?
+                          {selectedMethod && amount ? 
                             (parseInt(amount) + (paymentMethods.find(m => m.id === selectedMethod)?.fees === 'Free' ? 0 : Math.ceil(parseInt(amount) * 0.015))).toLocaleString() + ' RWF'
                             : '0 RWF'
                           }
@@ -310,7 +320,7 @@ export function PaymentCenter() {
                   <Alert>
                     <Shield className="h-4 w-4" />
                     <AlertDescription className="text-sm">
-                      All payments are processed securely using bank-grade encryption.
+                      All payments are processed securely using bank-grade encryption. 
                       Your financial information is never stored on our servers.
                     </AlertDescription>
                   </Alert>

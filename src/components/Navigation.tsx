@@ -62,38 +62,29 @@ export function Navigation({ currentPage, onPageChange }: NavigationProps) {
     { id: 'overview', label: t('nav.about'), icon: <FileText className="h-4 w-4" />, type: 'single' },
     { id: 'services', label: t('nav.services'), icon: <Phone className="h-4 w-4" />, type: 'single' },
     { 
-      id: 'applications', 
-      label: t('nav.applications'), 
-      icon: <Target className="h-4 w-4" />, 
+      id: 'digital-passport', 
+      label: t('service.digitalPass', {}, 'Digital Passport'), 
+      icon: <Ticket className="h-4 w-4" />, 
       type: 'dropdown',
       items: [
-        { id: 'apply-passport', label: t('passport.title'), icon: <BookOpen className="h-3 w-3" /> },
-        { id: 'apply-visa', label: t('visa.title'), icon: <FileText className="h-3 w-3" /> },
-        { id: 'apply-permit', label: t('permit.title'), icon: <Ticket className="h-3 w-3" /> },
-        { id: 'apply-citizenship', label: t('citizenship.title'), icon: <Shield className="h-3 w-3" /> },
-        { id: 'cepgl-service', label: t('cepgl.title'), icon: <Globe className="h-3 w-3" /> },
-        { id: 'laissez-passer', label: t('laissezPasser.title'), icon: <Clipboard className="h-3 w-3" /> },
-        { id: 'refugee-services', label: t('refugee.title'), icon: <HandHeart className="h-3 w-3" /> },
-        { id: 'diaspora-services', label: t('diaspora.title'), icon: <MapPin className="h-3 w-3" /> },
-        { id: 'appointments', label: t('nav.appointments'), icon: <CalendarDays className="h-3 w-3" /> },
-        { id: 'status', label: t('nav.status'), icon: <Search className="h-3 w-3" /> }
+        { id: 'border-pass', label: t('service.digitalPass'), icon: <Ticket className="h-3 w-3" /> },
+        { id: 'status', label: t('nav.status'), icon: <Search className="h-3 w-3" /> },
+        { id: 'payments', label: t('service.paymentCenter'), icon: <CreditCard className="h-3 w-3" /> }
       ]
     },
     { 
       id: 'support', 
       label: t('nav.help'), 
       icon: <MessageCircle className="h-4 w-4" />, 
-      type: 'dropdown',
-      items: [
-        { id: 'documents', label: t('service.documentUpload'), icon: <Paperclip className="h-3 w-3" /> },
-        { id: 'payments', label: t('service.paymentCenter'), icon: <CreditCard className="h-3 w-3" /> },
-        { id: 'border-pass', label: t('service.digitalPass'), icon: <Ticket className="h-3 w-3" /> }
-      ]
+      type: 'single',
+      target: 'help'
     }
   ];
 
   const handlePageChange = (page: string) => {
-    onPageChange(page);
+    // Handle special case where nav item has a target
+    const targetPage = navItems.find(item => item.id === page)?.target || page;
+    onPageChange(targetPage);
     setIsOpen(false);
   };
 

@@ -8,29 +8,20 @@ import { AdminNavigation } from "./components/AdminNavigation";
 import { ProjectOverview } from "./components/ProjectOverview";
 import { HomePage } from "./components/HomePage";
 import { AdminHomePage } from "./components/AdminHomePage";
-import { PassportApplication } from "./components/PassportApplication";
-import { VisaApplication } from "./components/VisaApplication";
 import { StatusChecker } from "./components/StatusChecker";
 import { BorderRecords } from "./components/BorderRecords";
 import { AdminPanel } from "./components/AdminPanel";
-
+import { BiometricEnrollment } from "./components/BiometricEnrollment";
 import { DigitalBorderPass } from "./components/DigitalBorderPass";
 import { EnhancedAnalyticsDashboard } from "./components/EnhancedAnalyticsDashboard";
-import { AppointmentBooking } from "./components/AppointmentBooking";
-import { DocumentUpload } from "./components/DocumentUpload";
 import { PaymentCenter } from "./components/PaymentCenter";
 import { EntryExitLogging } from "./components/EntryExitLogging";
 import { InterpolIntegration } from "./components/InterpolIntegration";
-
+import { IdentityVerification } from "./components/IdentityVerification";
+import { BiometricCenters } from "./components/BiometricCenters";
 import { AlertsWatchlist } from "./components/AlertsWatchlist";
 import { MultiAgencyAccess } from "./components/MultiAgencyAccess";
 import { DGIEServices } from "./components/DGIEServices";
-import { PermitApplication } from "./components/PermitApplication";
-import { CitizenshipApplication } from "./components/CitizenshipApplication";
-import { LaissezPasserApplication } from "./components/LaissezPasserApplication";
-import { RefugeeServices } from "./components/RefugeeServices";
-import { DiasporaServices } from "./components/DiasporaServices";
-import { CEPGLService } from "./components/CEPGLService";
 import { HelpSystem } from "./components/HelpSystem";
 import { SecureChipData } from "./components/SecureChipData";
 import { AdvancedPassengerInfo } from "./components/AdvancedPassengerInfo";
@@ -41,11 +32,7 @@ import { ContentBulletinManagement } from "./components/ContentBulletinManagemen
 import { Chatbot } from "./components/Chatbot";
 import { PreferencesPanel } from "./components/PreferencesPanel";
 import { ModernHomePage } from "./components/ModernHomePage";
-import { ModernPassportApplication } from "./components/ModernPassportApplication";
-import { ModernVisaApplication } from "./components/ModernVisaApplication";
 import { ModernStatusChecker } from "./components/ModernStatusChecker";
-import { ModernAppointmentBooking } from "./components/ModernAppointmentBooking";
-import { ModernDocumentUpload } from "./components/ModernDocumentUpload";
 import { FloatingLanguageSwitcher } from "./components/modern/FloatingLanguageSwitcher";
 
 // Professional Components
@@ -90,18 +77,16 @@ function AppContent() {
   // Define access control for different pages
   const getPageAccess = (page: string) => {
     const publicPages = [
-      'home', 'overview', 'apply-passport', 'apply-visa', 'apply-permit', 
-      'apply-citizenship', 'cepgl-service', 'laissez-passer', 'refugee-services', 'diaspora-services',
-      'appointments', 'documents', 'payments', 'status', 'services', 'help', 'login', 'preferences'
+      'home', 'overview', 'border-pass', 'payments', 'status', 'services', 'help', 'login', 'preferences'
     ];
     
     const customerPages = [
-      ...publicPages, 'border-pass'
+      ...publicPages
     ];
     
     const officerPages = [
-      ...customerPages, 'records', 'entry-exit', 
-      'traveler-dashboard', 
+      ...customerPages, 'records', 'entry-exit', 'enroll-biometrics', 
+      'verify-identity', 'biometric-centers', 'traveler-dashboard', 
       'passenger-info', 'pre-arrival', 'content-management'
     ];
     
@@ -159,33 +144,13 @@ function AppContent() {
       case 'overview':
         return <ProjectOverview />;
       
-      // Public Applications
-      case 'apply-passport':
-        return <ModernPassportApplication />;
-      case 'apply-visa':
-        return <ModernVisaApplication />;
-      case 'apply-permit':
-        return <PermitApplication />;
-      case 'apply-citizenship':
-        return <CitizenshipApplication />;
-      case 'cepgl-service':
-        return <CEPGLService />;
-      case 'laissez-passer':
-        return <LaissezPasserApplication />;
-      case 'refugee-services':
-        return <RefugeeServices />;
-      case 'diaspora-services':
-        return <DiasporaServices />;
-      case 'appointments':
-        return <ModernAppointmentBooking />;
-      case 'documents':
-        return <ModernDocumentUpload />;
+      // Digital Passport Services
+      case 'border-pass':
+        return <DigitalBorderPass />;
       case 'payments':
         return <PaymentCenter />;
       case 'status':
         return <ModernStatusChecker />;
-      case 'border-pass':
-        return <DigitalBorderPass />;
       case 'services':
         return <DGIEServices onPageChange={handlePageChange} />;
       case 'help':
@@ -201,7 +166,13 @@ function AppContent() {
       case 'interpol':
         return <InterpolIntegration />;
       
-
+      // Biometrics (Officer+ access)
+      case 'enroll-biometrics':
+        return <BiometricEnrollment />;
+      case 'verify-identity':
+        return <IdentityVerification />;
+      case 'biometric-centers':
+        return <BiometricCenters />;
       
       // Officer Features
       case 'traveler-dashboard':
@@ -227,16 +198,10 @@ function AppContent() {
       case 'risk-assessment':
         return <RiskAssessment />;
       
-      // Legacy routes
-      case 'apply':
-        return <PassportApplication />;
-      case 'admin':
-        return <AdminPanel />;
-      
       default:
         return isAdminUser ? 
           <AdminHomePage onPageChange={handlePageChange} /> : 
-          <HomePage onPageChange={handlePageChange} />;
+          <ModernHomePage onPageChange={handlePageChange} />;
     }
   };
 

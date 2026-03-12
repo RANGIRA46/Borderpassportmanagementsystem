@@ -3,13 +3,13 @@ import { DashboardGreeting } from "./modern/DashboardGreeting";
 import { ServiceCard } from "./modern/ServiceCard";
 import { useAuth } from "./UserAuth";
 import { useTranslationWithParams } from "./utils/TranslationUtils";
-import {
-  FileText,
-  Globe,
-  Ticket,
-  Shield,
-  MapPin,
-  Users,
+import { 
+  FileText, 
+  Globe, 
+  Ticket, 
+  Shield, 
+  MapPin, 
+  Users, 
   Plane,
   Calendar,
   Search,
@@ -35,87 +35,62 @@ export function ModernHomePage({ onPageChange }: ModernHomePageProps) {
 
   const services = [
     {
-      id: 'apply-passport',
-      title: t('passport.title', {}, 'Passport Application'),
-      description: t('home.passportDesc', {}, 'Apply for a new passport or renew your existing one'),
-      icon: <FileText className="h-7 w-7" />,
+      id: 'border-pass',
+      title: t('service.digitalPass', {}, 'Digital Passport'),
+      description: t('home.digitalPassDesc', {}, 'Access your secure digital passport with biometric verification'),
+      icon: <Ticket className="h-7 w-7" />,
       color: "from-navy-dark to-navy-medium",
       popular: true,
-      estimated: "3-5 days",
+      estimated: "Instant",
       illustration: "🛂"
     },
     {
-      id: 'apply-visa',
-      title: t('visa.title', {}, 'Visa Application'),
-      description: t('home.visaDesc', {}, 'Apply for tourist, business, or transit visas'),
-      icon: <Globe className="h-7 w-7" />,
+      id: 'status',
+      title: t('nav.status', {}, 'Passport Status'),
+      description: t('home.statusDesc', {}, 'Check your passport status and validity'),
+      icon: <Search className="h-7 w-7" />,
       color: "from-blue-medium to-navy-medium",
       popular: true,
-      estimated: "7-10 days",
-      illustration: "✈️"
+      estimated: "Real-time",
+      illustration: "📋"
     },
     {
-      id: 'apply-permit',
-      title: t('permit.title', {}, 'Residence Permit'),
-      description: t('home.permitDesc', {}, 'Apply for work or residence permits'),
-      icon: <Ticket className="h-7 w-7" />,
+      id: 'services',
+      title: t('nav.services', {}, 'Border Services'),
+      description: t('home.servicesDesc', {}, 'Access comprehensive border and immigration services'),
+      icon: <Globe className="h-7 w-7" />,
       color: "from-navy-medium to-blue-medium",
-      estimated: "14 days",
-      illustration: "🏠"
-    },
-    {
-      id: 'apply-citizenship',
-      title: t('citizenship.title', {}, 'Citizenship'),
-      description: t('home.citizenshipDesc', {}, 'Apply for Rwandan citizenship'),
-      icon: <Shield className="h-7 w-7" />,
-      color: "from-blue-medium to-navy-dark",
-      estimated: "60 days",
-      illustration: "🇷🇼"
-    },
-    {
-      id: 'cepgl-service',
-      title: t('cepgl.title', {}, 'CEPGL Pass'),
-      description: t('home.cepglDesc', {}, 'Regional travel document for East African Community'),
-      icon: <MapPin className="h-7 w-7" />,
-      color: "from-navy-medium to-blue-light",
+      estimated: "Varies",
       illustration: "🌍"
-    },
-    {
-      id: 'refugee-services',
-      title: t('refugee.title', {}, 'Refugee Services'),
-      description: t('home.refugeeDesc', {}, 'Documentation and support for refugees'),
-      icon: <Users className="h-7 w-7" />,
-      color: "from-blue-light to-navy-medium",
-      illustration: "🤝"
     }
   ];
 
   const quickActions = [
     {
-      id: 'status',
-      title: t('nav.status', {}, 'Check Status'),
-      description: 'Track your application',
-      icon: <Search className="h-5 w-5" />,
+      id: 'border-pass',
+      title: t('service.digitalPass', {}, 'Digital Passport'),
+      description: 'View your digital passport',
+      icon: <Ticket className="h-5 w-5" />,
       color: "text-blue-600 dark:text-blue-400"
     },
     {
-      id: 'appointments',
-      title: t('nav.appointments', {}, 'Book Appointment'),
-      description: 'Schedule appointment',
-      icon: <Calendar className="h-5 w-5" />,
+      id: 'status',
+      title: t('nav.status', {}, 'Check Status'),
+      description: 'Track passport status',
+      icon: <Search className="h-5 w-5" />,
       color: "text-purple-600 dark:text-purple-400"
     },
     {
       id: 'payments',
       title: t('nav.payments', {}, 'Make Payment'),
-      description: 'Pay application fees',
+      description: 'Pay passport fees',
       icon: <CreditCard className="h-5 w-5" />,
       color: "text-green-600 dark:text-green-400"
     },
     {
-      id: 'documents',
-      title: t('nav.documents', {}, 'Upload Documents'),
-      description: 'Submit required documents',
+      id: 'help',
+      title: t('nav.help', {}, 'Get Help'),
+      description: 'Contact support',
       icon: <FileCheck className="h-5 w-5" />,
       color: "text-orange-600 dark:text-orange-400"
     }
@@ -123,9 +98,9 @@ export function ModernHomePage({ onPageChange }: ModernHomePageProps) {
 
   const features = [
     {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Fast Processing",
-      description: "Most applications processed within 48 hours"
+      icon: <Fingerprint className="h-6 w-6" />,
+      title: "Biometric Security",
+      description: "Advanced biometric authentication for secure access"
     },
     {
       icon: <Lock className="h-6 w-6" />,
@@ -135,7 +110,7 @@ export function ModernHomePage({ onPageChange }: ModernHomePageProps) {
     {
       icon: <Clock className="h-6 w-6" />,
       title: "24/7 Access",
-      description: "Apply anytime, from anywhere"
+      description: "Access your digital passport anytime, anywhere"
     },
     {
       icon: <Globe className="h-6 w-6" />,
@@ -197,10 +172,10 @@ export function ModernHomePage({ onPageChange }: ModernHomePageProps) {
           <div className="flex items-center justify-between mb-6">
             <div>
               <h2 className="text-2xl text-navy-dark dark:text-white">
-                {t('home.services', {}, 'Our Services')}
+                {t('home.services', {}, 'Digital Passport Services')}
               </h2>
               <p className="text-sm text-navy-medium/60 dark:text-white/60 mt-1">
-                Choose from our comprehensive range of immigration services
+                Access your digital passport and manage border services
               </p>
             </div>
             <Button
@@ -282,7 +257,7 @@ export function ModernHomePage({ onPageChange }: ModernHomePageProps) {
                   Ready to Get Started?
                 </h2>
                 <p className="text-white/80 mb-6 max-w-2xl mx-auto">
-                  Create an account to track your applications, book appointments, and access personalized services.
+                  Create an account to access your digital passport and track its status.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button
@@ -296,10 +271,10 @@ export function ModernHomePage({ onPageChange }: ModernHomePageProps) {
                   <Button
                     size="lg"
                     variant="outline"
-                    onClick={() => onPageChange('apply-passport')}
+                    onClick={() => onPageChange('border-pass')}
                     className="border-white text-white hover:bg-white/10"
                   >
-                    Apply Now
+                    View Digital Passport
                   </Button>
                 </div>
               </div>

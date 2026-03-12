@@ -3,21 +3,21 @@ import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Badge } from "./ui/badge";
 import { Avatar, AvatarFallback } from "./ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
   DropdownMenuTrigger,
-  DropdownMenuSeparator
+  DropdownMenuSeparator 
 } from "./ui/dropdown-menu";
 import { useAuth } from "./UserAuth";
 import { LanguageSelector, useTranslation, Language } from "./utils/LanguageSelector";
 import { useTranslationWithParams } from "./utils/TranslationUtils";
 import { ThemeToggle } from "./utils/ThemeProvider";
-import {
-  User,
-  LogOut,
-  Settings,
+import { 
+  User, 
+  LogOut, 
+  Settings, 
   Menu,
   Shield,
   Globe,
@@ -50,7 +50,7 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
   const handleLanguageChange = (language: Language) => {
     setLanguage(language.code);
   };
-
+  
   // Admin-focused navigation items with translations
   const getNavItems = () => {
     const baseItems = [
@@ -59,10 +59,10 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
     ];
 
     const officerItems = [
-      {
-        id: 'processing',
-        label: t('admin.processing'),
-        icon: <FileText className="h-4 w-4" />,
+      { 
+        id: 'processing', 
+        label: t('admin.processing'), 
+        icon: <FileText className="h-4 w-4" />, 
         type: 'dropdown',
         items: [
           { id: 'apply-passport', label: t('passport.title'), icon: <FileText className="h-3 w-3" /> },
@@ -71,10 +71,10 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
           { id: 'payments', label: t('service.paymentCenter'), icon: <CreditCard className="h-3 w-3" /> }
         ]
       },
-      {
-        id: 'border-control',
-        label: t('admin.borderControl'),
-        icon: <Shield className="h-4 w-4" />,
+      { 
+        id: 'border-control', 
+        label: t('admin.borderControl'), 
+        icon: <Shield className="h-4 w-4" />, 
         type: 'dropdown',
         items: [
           { id: 'entry-exit', label: t('admin.entryExitLogging'), icon: <Activity className="h-3 w-3" /> },
@@ -82,14 +82,24 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
           { id: 'status', label: t('admin.statusVerification'), icon: <Search className="h-3 w-3" /> }
         ]
       },
-
+      { 
+        id: 'biometrics', 
+        label: t('admin.biometrics'), 
+        icon: <Fingerprint className="h-4 w-4" />, 
+        type: 'dropdown',
+        items: [
+          { id: 'enroll-biometrics', label: t('admin.enrollment'), icon: <Fingerprint className="h-3 w-3" /> },
+          { id: 'verify-identity', label: t('admin.verification'), icon: <Shield className="h-3 w-3" /> },
+          { id: 'biometric-centers', label: t('admin.centers'), icon: <Users className="h-3 w-3" /> }
+        ]
+      }
     ];
 
     const adminItems = [
-      {
-        id: 'security',
-        label: t('admin.security'),
-        icon: <Database className="h-4 w-4" />,
+      { 
+        id: 'security', 
+        label: t('admin.security'), 
+        icon: <Database className="h-4 w-4" />, 
         type: 'dropdown',
         items: [
           { id: 'interpol', label: t('admin.interpol'), icon: <Globe className="h-3 w-3" /> },
@@ -97,16 +107,16 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
           { id: 'agencies', label: t('admin.multiAgency'), icon: <Users className="h-3 w-3" /> }
         ]
       },
-      {
-        id: 'analytics',
-        label: t('admin.analytics'),
-        icon: <BarChart3 className="h-4 w-4" />,
+      { 
+        id: 'analytics', 
+        label: t('admin.analytics'), 
+        icon: <BarChart3 className="h-4 w-4" />, 
         type: 'single'
       },
-      {
-        id: 'admin-dashboard',
-        label: t('admin.management'),
-        icon: <Settings className="h-4 w-4" />,
+      { 
+        id: 'admin-dashboard', 
+        label: t('admin.management'), 
+        icon: <Settings className="h-4 w-4" />, 
         type: 'single'
       }
     ];
@@ -114,7 +124,7 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
     const superAdminItems: any[] = [];
 
     let navItems = [...baseItems, ...officerItems];
-
+    
     if (isAdmin || isSuperAdmin) {
       navItems = [...navItems, ...adminItems];
     }
@@ -140,10 +150,11 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
           key={item.id}
           variant={currentPage === item.id ? "default" : "ghost"}
           onClick={() => onPageChange(item.id)}
-          className={`flex items-center space-x-2 px-3 py-2 text-sm font-medium transition-all ${currentPage === item.id
-              ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+          className={`flex items-center space-x-2 px-3 py-2 text-sm font-medium transition-all ${
+            currentPage === item.id 
+              ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
               : 'text-foreground hover:bg-muted hover:text-foreground'
-            }`}
+          }`}
           size="sm"
         >
           {item.icon}
@@ -159,10 +170,11 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
-              className={`flex items-center space-x-2 px-3 py-2 text-sm font-medium transition-all ${isActive
-                  ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+              className={`flex items-center space-x-2 px-3 py-2 text-sm font-medium transition-all ${
+                isActive 
+                  ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
                   : 'text-foreground hover:bg-muted hover:text-foreground'
-                }`}
+              }`}
               size="sm"
             >
               {item.icon}
@@ -173,10 +185,11 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
           <DropdownMenuContent align="start" className="w-56 bg-popover border border-border">
             {item.items.map((subItem: any, index: number) => (
               <div key={subItem.id}>
-                <DropdownMenuItem
+                <DropdownMenuItem 
                   onClick={() => onPageChange(subItem.id)}
-                  className={`flex items-center space-x-2 cursor-pointer hover:bg-accent text-foreground ${subItem.id === currentPage ? 'bg-accent text-accent-foreground' : ''
-                    }`}
+                  className={`flex items-center space-x-2 cursor-pointer hover:bg-accent text-foreground ${
+                    subItem.id === currentPage ? 'bg-accent text-accent-foreground' : ''
+                  }`}
                 >
                   {subItem.icon}
                   <span>{subItem.label}</span>
@@ -257,7 +270,7 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
               />
             </div>
           </div>
-
+          
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
             {navItems.map(renderNavItem)}
@@ -278,14 +291,14 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
             </div>
 
             {/* Language Selector */}
-            <LanguageSelector
+            <LanguageSelector 
               currentLanguage={currentLanguage}
               onLanguageChange={handleLanguageChange}
               className="text-foreground hover:bg-muted"
             />
 
             {/* Theme Toggle */}
-            <ThemeToggle
+            <ThemeToggle 
               variant="ghost"
               size="sm"
               className="text-foreground hover:bg-muted"
@@ -332,8 +345,8 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
                     <span>{t('admin.auditLogs')}</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-border" />
-                  <DropdownMenuItem
-                    onClick={logout}
+                  <DropdownMenuItem 
+                    onClick={logout} 
                     className="flex items-center space-x-3 cursor-pointer text-destructive hover:bg-destructive/10 py-3"
                   >
                     <LogOut className="h-4 w-4" />
@@ -382,7 +395,7 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
                         </div>
                       </div>
                     )}
-
+                    
                     {/* Mobile Navigation Items */}
                     {navItems.map((item) => (
                       <div key={item.id} className="space-y-2">
@@ -390,10 +403,11 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
                           <Button
                             variant={currentPage === item.id ? "default" : "ghost"}
                             onClick={() => handlePageChange(item.id)}
-                            className={`flex items-center space-x-3 justify-start h-12 text-left w-full ${currentPage === item.id
-                                ? 'bg-primary text-primary-foreground'
+                            className={`flex items-center space-x-3 justify-start h-12 text-left w-full ${
+                              currentPage === item.id 
+                                ? 'bg-primary text-primary-foreground' 
                                 : 'text-foreground hover:bg-muted'
-                              }`}
+                            }`}
                           >
                             {item.icon}
                             <span>{item.label}</span>
@@ -410,10 +424,11 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
                                   key={subItem.id}
                                   variant={currentPage === subItem.id ? "default" : "ghost"}
                                   onClick={() => handlePageChange(subItem.id)}
-                                  className={`flex items-center space-x-3 justify-start h-10 text-left w-full ${currentPage === subItem.id
-                                      ? 'bg-primary text-primary-foreground'
+                                  className={`flex items-center space-x-3 justify-start h-10 text-left w-full ${
+                                    currentPage === subItem.id 
+                                      ? 'bg-primary text-primary-foreground' 
                                       : 'text-foreground hover:bg-muted'
-                                    }`}
+                                  }`}
                                   size="sm"
                                 >
                                   {subItem.icon}

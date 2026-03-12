@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Check Application Status - Rwanda Border & Passport Management System</title>
 </head>
-
 <body>
     <main>
         <div class="container py-8">
@@ -27,25 +25,23 @@
                         <form id="status-form" class="space-y-4">
                             <div class="tabs">
                                 <div class="tab-list">
-                                    <button type="button" class="tab-button active" data-tab="reference">Reference
-                                        Number</button>
-                                    <button type="button" class="tab-button" data-tab="personal">Personal
-                                        Details</button>
+                                    <button type="button" class="tab-button active" data-tab="reference">Reference Number</button>
+                                    <button type="button" class="tab-button" data-tab="personal">Personal Details</button>
                                 </div>
-
+                                
                                 <div id="reference" class="tab-content active">
                                     <div class="space-y-4">
                                         <div class="form-group">
                                             <label class="form-label">Application Reference Number *</label>
-                                            <input name="referenceNumber" type="text" class="form-input"
-                                                placeholder="e.g., PA2024001234, VA2024005678" required>
+                                            <input name="referenceNumber" type="text" class="form-input" 
+                                                   placeholder="e.g., PA2024001234, VA2024005678" required>
                                             <p class="text-xs text-navy-medium mt-1">
                                                 You can find this in your confirmation email or SMS
                                             </p>
                                         </div>
                                     </div>
                                 </div>
-
+                                
                                 <div id="personal" class="tab-content">
                                     <div class="space-y-4">
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -105,7 +101,7 @@
                         <div class="card-content p-4 text-center">
                             <div class="text-3xl mb-2">📅</div>
                             <h4 class="font-medium mb-2">Book Appointment</h4>
-                            <p class="text-sm text-navy-medium">Schedule appointment</p>
+                            <p class="text-sm text-navy-medium">Schedule biometric enrollment</p>
                         </div>
                     </div>
                 </div>
@@ -132,7 +128,7 @@
                     { name: 'Application Submitted', completed: true, date: '2024-01-15' },
                     { name: 'Payment Confirmed', completed: true, date: '2024-01-15' },
                     { name: 'Document Review', completed: false, current: true },
-
+                    { name: 'Biometric Capture', completed: false },
                     { name: 'Passport Production', completed: false },
                     { name: 'Ready for Collection', completed: false }
                 ]
@@ -157,7 +153,7 @@
             }
         ];
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             initializeStatusPage();
         });
 
@@ -174,32 +170,32 @@
 
         function handleStatusCheck(e) {
             e.preventDefault();
-
+            
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
-
+            
             // Show loading
             const submitButton = e.target.querySelector('button[type="submit"]');
             Utils.showLoading(submitButton, 'Searching...');
-
+            
             // Simulate API call
             setTimeout(() => {
                 Utils.hideLoading(submitButton);
-
+                
                 // Find application
                 let application = null;
-
+                
                 if (data.referenceNumber) {
-                    application = mockApplications.find(app =>
+                    application = mockApplications.find(app => 
                         app.reference.toLowerCase() === data.referenceNumber.toLowerCase()
                     );
                 } else if (data.firstName && data.lastName) {
-                    application = mockApplications.find(app =>
+                    application = mockApplications.find(app => 
                         app.applicant.toLowerCase().includes(data.firstName.toLowerCase()) &&
                         app.applicant.toLowerCase().includes(data.lastName.toLowerCase())
                     );
                 }
-
+                
                 if (application) {
                     displayResults(application);
                 } else {
@@ -211,10 +207,10 @@
         function displayResults(application) {
             const container = document.getElementById('results-container');
             container.classList.remove('hidden');
-
+            
             const statusColor = Utils.getStatusColor(application.status);
             const progressColor = application.progress === 100 ? 'bg-green-500' : 'bg-blue-500';
-
+            
             container.innerHTML = `
                 <div class="max-w-4xl mx-auto">
                     <div class="card">
@@ -263,10 +259,11 @@
                                 <div class="space-y-3">
                                     ${application.steps.map((step, index) => `
                                         <div class="flex items-center space-x-3">
-                                            <div class="w-8 h-8 rounded-full flex items-center justify-center ${step.completed ? 'bg-green-500 text-white' :
-                    step.current ? 'bg-blue-500 text-white' :
-                        'bg-gray-200 text-gray-500'
-                }">
+                                            <div class="w-8 h-8 rounded-full flex items-center justify-center ${
+                                                step.completed ? 'bg-green-500 text-white' :
+                                                step.current ? 'bg-blue-500 text-white' :
+                                                'bg-gray-200 text-gray-500'
+                                            }">
                                                 ${step.completed ? '✓' : index + 1}
                                             </div>
                                             <div class="flex-1">
@@ -324,7 +321,7 @@
                     </div>
                 </div>
             `;
-
+            
             // Scroll to results
             container.scrollIntoView({ behavior: 'smooth' });
         }
@@ -332,7 +329,7 @@
         function displayNoResults() {
             const container = document.getElementById('results-container');
             container.classList.remove('hidden');
-
+            
             container.innerHTML = `
                 <div class="max-w-2xl mx-auto">
                     <div class="card">
@@ -356,7 +353,7 @@
                     </div>
                 </div>
             `;
-
+            
             container.scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -394,7 +391,7 @@
         function contactSupport() {
             const application = mockApplications[0]; // Use first application as example
             const message = `I need help with my application ${application.reference}. Current status: ${application.status}`;
-
+            
             if (navigator.share) {
                 navigator.share({
                     title: 'Immigration Support Request',
@@ -416,5 +413,4 @@
         window.contactSupport = contactSupport;
     </script>
 </body>
-
 </html>

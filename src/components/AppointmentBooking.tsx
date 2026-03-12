@@ -9,12 +9,12 @@ import { Calendar } from "./ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Alert, AlertDescription } from "./ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import {
-  Calendar as CalendarIcon,
-  MapPin,
-  Clock,
-  Users,
-  CheckCircle,
+import { 
+  Calendar as CalendarIcon, 
+  MapPin, 
+  Clock, 
+  Users, 
+  CheckCircle, 
   AlertCircle,
   Phone,
   Mail,
@@ -28,7 +28,7 @@ export function AppointmentBooking() {
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedCenter, setSelectedCenter] = useState('');
   const [selectedSlot, setSelectedSlot] = useState('');
-  const [appointmentType, setAppointmentType] = useState('document-verification');
+  const [appointmentType, setAppointmentType] = useState('biometric');
   const [applicantData, setApplicantData] = useState({
     applicationRef: '',
     firstName: '',
@@ -46,10 +46,10 @@ export function AppointmentBooking() {
       capacity: 120,
       currentLoad: 78,
       coordinates: { lat: -1.9441, lng: 30.0619 },
-      services: ['document-verification', 'photo-capture'],
+      services: ['biometric', 'document-verification', 'photo-capture'],
       operatingHours: '08:00 - 17:00',
       languages: ['kinyarwanda', 'english', 'french'],
-      equipment: ['Face Camera', 'Document Scanner'],
+      equipment: ['Fingerprint Scanner', 'Face Camera', 'Document Scanner'],
       waitTime: '15-20 minutes'
     },
     {
@@ -59,10 +59,10 @@ export function AppointmentBooking() {
       capacity: 80,
       currentLoad: 45,
       coordinates: { lat: -1.9536, lng: 30.0605 },
-      services: ['document-verification'],
+      services: ['biometric', 'document-verification'],
       operatingHours: '08:30 - 16:30',
       languages: ['kinyarwanda', 'english'],
-      equipment: ['Document Scanner'],
+      equipment: ['Fingerprint Scanner', 'Document Scanner'],
       waitTime: '10-15 minutes'
     },
     {
@@ -72,10 +72,10 @@ export function AppointmentBooking() {
       capacity: 60,
       currentLoad: 52,
       coordinates: { lat: -1.9355, lng: 30.1088 },
-      services: ['photo-capture'],
+      services: ['biometric', 'photo-capture'],
       operatingHours: '09:00 - 16:00',
       languages: ['kinyarwanda', 'english', 'french'],
-      equipment: ['Face Camera'],
+      equipment: ['Fingerprint Scanner', 'Face Camera'],
       waitTime: '20-25 minutes'
     },
     {
@@ -85,10 +85,10 @@ export function AppointmentBooking() {
       capacity: 50,
       currentLoad: 23,
       coordinates: { lat: -2.5969, lng: 29.7391 },
-      services: ['document-verification', 'photo-capture'],
+      services: ['biometric', 'document-verification', 'photo-capture'],
       operatingHours: '08:00 - 17:00',
       languages: ['kinyarwanda', 'english'],
-      equipment: ['Face Camera', 'Document Scanner'],
+      equipment: ['Fingerprint Scanner', 'Face Camera', 'Document Scanner'],
       waitTime: '5-10 minutes'
     }
   ];
@@ -111,7 +111,14 @@ export function AppointmentBooking() {
   ];
 
   const appointmentTypes = [
-
+    {
+      id: 'biometric',
+      title: 'Biometric Enrollment',
+      description: 'Face photo and fingerprint capture',
+      duration: '15 minutes',
+      icon: <Fingerprint className="h-5 w-5" />,
+      requirements: ['Valid application reference', 'Identity document', 'Appointment confirmation']
+    },
     {
       id: 'photo',
       title: 'Photo Capture Only',
@@ -154,7 +161,7 @@ export function AppointmentBooking() {
   const handleBookAppointment = () => {
     const selectedCenterData = enrollmentCenters.find(c => c.id === selectedCenter);
     const appointmentRef = `APT${Date.now().toString().slice(-6)}`;
-
+    
     alert(`
       Appointment Booked Successfully!
       
@@ -170,22 +177,22 @@ export function AppointmentBooking() {
   };
 
   const isFormValid = () => {
-    return applicantData.applicationRef &&
-      applicantData.firstName &&
-      applicantData.lastName &&
-      applicantData.email &&
-      applicantData.phone &&
-      selectedDate &&
-      selectedCenter &&
-      selectedSlot;
+    return applicantData.applicationRef && 
+           applicantData.firstName && 
+           applicantData.lastName && 
+           applicantData.email && 
+           applicantData.phone && 
+           selectedDate && 
+           selectedCenter && 
+           selectedSlot;
   };
 
   return (
     <div className="max-w-6xl mx-auto p-6">
       <div className="mb-6">
-        <h1 className="text-3xl mb-2">Book Appointment</h1>
+        <h1 className="text-3xl mb-2">Book Biometric Appointment</h1>
         <p className="text-muted-foreground">
-          Schedule your appointment at one of our accredited centers
+          Schedule your biometric enrollment appointment at one of our accredited centers
         </p>
       </div>
 
@@ -337,9 +344,9 @@ export function AppointmentBooking() {
                               </div>
                             </div>
                             <div className="text-right">
-                              <Badge className={getLoadColor(center.currentLoad, center.capacity) === 'text-green-600' ? 'bg-green-100 text-green-800' :
-                                getLoadColor(center.currentLoad, center.capacity) === 'text-yellow-600' ? 'bg-yellow-100 text-yellow-800' :
-                                  'bg-red-100 text-red-800'}>
+                              <Badge className={getLoadColor(center.currentLoad, center.capacity) === 'text-green-600' ? 'bg-green-100 text-green-800' : 
+                                               getLoadColor(center.currentLoad, center.capacity) === 'text-yellow-600' ? 'bg-yellow-100 text-yellow-800' : 
+                                               'bg-red-100 text-red-800'}>
                                 {getLoadBadge(center.currentLoad, center.capacity)} Load
                               </Badge>
                               <div className="text-xs text-muted-foreground mt-1">
@@ -347,7 +354,7 @@ export function AppointmentBooking() {
                               </div>
                             </div>
                           </div>
-
+                          
                           <div className="flex items-center justify-between text-sm">
                             <div className="flex items-center space-x-4">
                               <div className="flex items-center">
@@ -448,8 +455,8 @@ export function AppointmentBooking() {
                         <span className="text-right">{enrollmentCenters.find(c => c.id === selectedCenter)?.name}</span>
                       </div>
                     </div>
-
-                    <Button
+                    
+                    <Button 
                       onClick={handleBookAppointment}
                       className="w-full"
                       size="lg"
@@ -476,9 +483,9 @@ export function AppointmentBooking() {
                         {center.address}
                       </div>
                     </div>
-                    <Badge className={getLoadColor(center.currentLoad, center.capacity) === 'text-green-600' ? 'bg-green-100 text-green-800' :
-                      getLoadColor(center.currentLoad, center.capacity) === 'text-yellow-600' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-red-100 text-red-800'}>
+                    <Badge className={getLoadColor(center.currentLoad, center.capacity) === 'text-green-600' ? 'bg-green-100 text-green-800' : 
+                                     getLoadColor(center.currentLoad, center.capacity) === 'text-yellow-600' ? 'bg-yellow-100 text-yellow-800' : 
+                                     'bg-red-100 text-red-800'}>
                       {getLoadBadge(center.currentLoad, center.capacity)} Load
                     </Badge>
                   </div>
@@ -584,9 +591,9 @@ export function AppointmentBooking() {
           <Alert>
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>
-              <strong>Important:</strong> Please arrive 15 minutes before your scheduled appointment time.
-              Late arrivals may result in rescheduling. Bring all required original documents and your
-              appointment confirmation (SMS/Email). Data will be encrypted and stored securely
+              <strong>Important:</strong> Please arrive 15 minutes before your scheduled appointment time. 
+              Late arrivals may result in rescheduling. Bring all required original documents and your 
+              appointment confirmation (SMS/Email). Biometric data will be encrypted and stored securely 
               following ISO/ANSI standards.
             </AlertDescription>
           </Alert>

@@ -26,7 +26,7 @@ export function ModernAppointmentBooking() {
   });
 
   const services = [
-
+    { id: 'biometric', name: 'Biometric Enrollment', duration: '30 min', icon: '👆', color: 'from-blue-500 to-blue-600' },
     { id: 'document', name: 'Document Collection', duration: '15 min', icon: '📄', color: 'from-green-500 to-green-600' },
     { id: 'verification', name: 'Identity Verification', duration: '20 min', icon: '🔍', color: 'from-purple-500 to-purple-600' },
     { id: 'consultation', name: 'Immigration Consultation', duration: '45 min', icon: '💬', color: 'from-orange-500 to-orange-600' }
@@ -121,10 +121,11 @@ export function ModernAppointmentBooking() {
                   >
                     <Card
                       onClick={() => setFormData({ ...formData, service: service.id })}
-                      className={`p-6 cursor-pointer transition-all ${formData.service === service.id
+                      className={`p-6 cursor-pointer transition-all ${
+                        formData.service === service.id
                           ? 'border-navy-medium dark:border-blue-500 bg-navy-medium/5 dark:bg-blue-500/5 shadow-lg'
                           : 'border-navy-medium/10 hover:border-navy-medium/30'
-                        }`}
+                      }`}
                     >
                       <div className="flex items-start gap-4">
                         <div className={`h-14 w-14 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center text-2xl flex-shrink-0`}>

@@ -6,7 +6,7 @@ class BorderApp {
         this.currentPage = 'home';
         this.theme = 'customer';
         this.isAuthenticated = false;
-
+        
         this.init();
     }
 
@@ -70,7 +70,7 @@ class BorderApp {
                 lastName: 'Smith',
                 role: 'officer',
                 department: 'Immigration Services',
-                permissions: ['process_applications', 'verify_identity', 'view_records'],
+                permissions: ['process_applications', 'verify_identity', 'access_biometrics', 'view_records'],
                 createdAt: new Date('2024-01-10'),
                 lastLogin: new Date('2024-01-21'),
                 status: 'active'
@@ -106,13 +106,13 @@ class BorderApp {
     async login(email, password, userType) {
         // Simulate API call
         await this.delay(1500);
-
+        
         const users = this.getMockUsers();
-        const user = users.find(u =>
-            u.email.toLowerCase() === email.toLowerCase() &&
+        const user = users.find(u => 
+            u.email.toLowerCase() === email.toLowerCase() && 
             (userType === 'user' ? u.role === 'customer' : ['officer', 'admin', 'super-admin'].includes(u.role))
         );
-
+        
         if (user && password === 'password123') {
             this.currentUser = { ...user, lastLogin: new Date() };
             this.isAuthenticated = true;
@@ -122,21 +122,21 @@ class BorderApp {
             this.updateNavigation();
             return true;
         }
-
+        
         return false;
     }
 
     async register(userData) {
         // Simulate API call
         await this.delay(2000);
-
+        
         const users = this.getMockUsers();
         const existingUser = users.find(u => u.email.toLowerCase() === userData.email.toLowerCase());
-
+        
         if (existingUser) {
             return false;
         }
-
+        
         const newUser = {
             id: `usr_${Date.now()}`,
             email: userData.email,
@@ -144,13 +144,13 @@ class BorderApp {
             lastName: userData.lastName,
             role: userData.userType === 'user' ? 'customer' : 'officer',
             department: userData.userType === 'admin' ? 'Immigration Services' : undefined,
-            permissions: userData.userType === 'user'
+            permissions: userData.userType === 'user' 
                 ? ['apply_passport', 'apply_visa', 'view_status', 'book_appointment']
-                : ['process_applications', 'verify_identity'],
+                : ['process_applications', 'verify_identity', 'access_biometrics'],
             createdAt: new Date(),
             status: 'active'
         };
-
+        
         this.currentUser = newUser;
         this.isAuthenticated = true;
         localStorage.setItem('border_system_user', JSON.stringify(this.currentUser));
@@ -281,7 +281,14 @@ class BorderApp {
                         <a href="#" onclick="app.loadPage('status')" class="dropdown-item">🔍 Status Verification</a>
                     </div>
                 </div>
-
+                <div class="dropdown">
+                    <button class="btn btn-ghost">👆 Biometrics ▼</button>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="app.loadPage('enroll-biometrics')" class="dropdown-item">👆 Enrollment</a>
+                        <a href="#" onclick="app.loadPage('verify-identity')" class="dropdown-item">🔐 Verification</a>
+                        <a href="#" onclick="app.loadPage('biometric-centers')" class="dropdown-item">👥 Centers</a>
+                    </div>
+                </div>
                 <div class="dropdown">
                     <button class="btn btn-ghost">🌐 Security ▼</button>
                     <div class="dropdown-content">
@@ -315,12 +322,12 @@ class BorderApp {
 
     renderUserMenu() {
         if (!this.currentUser) return '';
-
+        
         const initials = `${this.currentUser.firstName.charAt(0)}${this.currentUser.lastName.charAt(0)}`.toUpperCase();
-        const roleDisplay = this.currentUser.role === 'customer' ? 'Customer' :
-            this.currentUser.role === 'officer' ? 'Officer' :
-                this.currentUser.role === 'admin' ? 'Administrator' : 'Super Admin';
-
+        const roleDisplay = this.currentUser.role === 'customer' ? 'Customer' : 
+                           this.currentUser.role === 'officer' ? 'Officer' :
+                           this.currentUser.role === 'admin' ? 'Administrator' : 'Super Admin';
+        
         return `
             <div class="dropdown">
                 <button class="btn btn-ghost flex items-center gap-2">
@@ -373,7 +380,9 @@ class BorderApp {
             'records': 'records.html',
             'entry-exit': 'entry-exit.html',
             'interpol': 'interpol.html',
-
+            'enroll-biometrics': 'enroll-biometrics.html',
+            'verify-identity': 'verify-identity.html',
+            'biometric-centers': 'biometric-centers.html',
             'admin-dashboard': 'admin-dashboard.html',
             'analytics': 'analytics.html',
             'alerts': 'alerts.html',
@@ -381,10 +390,10 @@ class BorderApp {
         };
 
         const url = pageUrls[pageName] || 'home.html';
-
+        
         // Update URL without page reload
         history.pushState({ page: pageName }, '', `?page=${pageName}`);
-
+        
         // Load page content
         this.loadPageContent(url);
     }
@@ -397,12 +406,12 @@ class BorderApp {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
                 const mainContent = doc.querySelector('main') || doc.body;
-
+                
                 const appMain = document.querySelector('#app-main');
                 if (appMain && mainContent) {
                     appMain.innerHTML = mainContent.innerHTML;
                     appMain.className = `fade-in ${this.theme === 'admin' ? 'admin-theme' : 'customer-theme'}`;
-
+                    
                     // Execute any page-specific JavaScript
                     this.executePageScripts();
                 }
@@ -426,18 +435,19 @@ class BorderApp {
     // Access Control
     hasPageAccess(page) {
         const publicPages = [
-            'home', 'overview', 'apply-passport', 'apply-visa',
+            'home', 'overview', 'apply-passport', 'apply-visa', 
             'appointments', 'documents', 'payments', 'status', 'login'
         ];
-
+        
         const customerPages = [...publicPages, 'border-pass'];
-
+        
         const officerPages = [
-            ...customerPages, 'records', 'entry-exit'
+            ...customerPages, 'records', 'entry-exit', 'enroll-biometrics', 
+            'verify-identity', 'biometric-centers'
         ];
-
+        
         const adminPages = [
-            ...officerPages, 'admin-dashboard', 'analytics', 'alerts',
+            ...officerPages, 'admin-dashboard', 'analytics', 'alerts', 
             'agencies', 'interpol'
         ];
 
@@ -446,7 +456,7 @@ class BorderApp {
         if (this.currentUser?.role === 'admin') return adminPages.includes(page);
         if (this.currentUser?.role === 'officer') return officerPages.includes(page);
         if (this.currentUser?.role === 'customer') return customerPages.includes(page);
-
+        
         return publicPages.includes(page);
     }
 
@@ -576,7 +586,7 @@ class BorderApp {
     toggleMobileNav() {
         const mobileNav = document.querySelector('.mobile-nav');
         const overlay = document.querySelector('.mobile-nav-overlay');
-
+        
         if (mobileNav && overlay) {
             mobileNav.classList.toggle('active');
             overlay.classList.toggle('active');
@@ -623,9 +633,9 @@ class BorderApp {
         const notification = document.createElement('div');
         notification.className = `alert alert-${type} fixed top-4 right-4 z-50 max-w-md`;
         notification.innerHTML = message;
-
+        
         document.body.appendChild(notification);
-
+        
         setTimeout(() => {
             notification.remove();
         }, 5000);
@@ -674,20 +684,22 @@ class BorderApp {
             'records': 'records.html',
             'entry-exit': 'entry-exit.html',
             'interpol': 'interpol.html',
-
+            'enroll-biometrics': 'enroll-biometrics.html',
+            'verify-identity': 'verify-identity.html',
+            'biometric-centers': 'biometric-centers.html',
             'admin-dashboard': 'admin-dashboard.html',
             'analytics': 'analytics.html',
             'alerts': 'alerts.html',
             'agencies': 'agencies.html'
         };
-
+        
         return pageUrls[pageName] || 'home.html';
     }
 
     async handleFormSubmit(form) {
         const formData = new FormData(form);
         const formType = form.dataset.form;
-
+        
         switch (formType) {
             case 'login':
                 await this.handleLoginForm(formData);
@@ -710,10 +722,10 @@ class BorderApp {
         const email = formData.get('email');
         const password = formData.get('password');
         const userType = formData.get('userType') || 'user';
-
+        
         const loginButton = document.querySelector('button[type="submit"]');
         this.showLoading(loginButton);
-
+        
         try {
             const success = await this.login(email, password, userType);
             if (success) {
@@ -739,10 +751,10 @@ class BorderApp {
             nationality: formData.get('nationality'),
             userType: formData.get('userType') || 'user'
         };
-
+        
         const registerButton = document.querySelector('button[type="submit"]');
         this.showLoading(registerButton);
-
+        
         try {
             const success = await this.register(userData);
             if (success) {
