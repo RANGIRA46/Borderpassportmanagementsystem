@@ -1,0 +1,735 @@
+openapi: "3.0.3"
+
+info:
+  title: Border/Passport Management System API
+  description: |
+    REST API for the Border/Passport Management System (BPMS).
+
+    All endpoints are served by a Supabase Edge Function (Hono + Deno).
+    Base URL: `https://<project>.supabase.co/functions/v1/server/make-server-8ee81f4f`
+
+    ## Authentication
+    Most write endpoints require a valid Supabase JWT token supplied in the
+    `Authorization: Bearer <token>` header.
+  version: "1.0.0"
+  contact:
+    name: BPMS Support
+    url: https://github.com/RANGIRA46/Borderpassportmanagementsystem
+
+servers:
+  - url: https://{project}.supabase.co/functions/v1/server/make-server-8ee81f4f
+    description: Supabase Edge Function (production)
+    variables:
+      project:
+        default: your-project-ref
+        description: Supabase project reference
+  - url: http://localhost:8000/make-server-8ee81f4f
+    description: Local development server
+
+tags:
+  - name: Health
+    description: Server health check
+  - name: Applications
+    description: Submit and track travel document applications
+  - name: Documents
+    description: Manage uploaded documents
+  - name: Appointments
+    description: Book and manage appointments
+  - name: Statistics
+    description: System analytics and statistics
+
+paths:
+  /health:
+    get:
+      tags: [Health]
+      summary: Health check
+      description: Returns server status and current timestamp.
+      operationId: healthCheck
+      responses:
+        "200":
+          description: Server is healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+
+  /applications/passport:
+    post:
+      tags: [Applications]
+      summary: Submit passport application
+      operationId: submitPassportApplication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PassportApplicationRequest"
+      responses:
+        "200":
+          description: Application submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationSubmitResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /applications/visa:
+    post:
+      tags: [Applications]
+      summary: Submit visa application
+      operationId: submitVisaApplication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VisaApplicationRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ApplicationSubmitted"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /applications/permit:
+    post:
+      tags: [Applications]
+      summary: Submit permit application
+      operationId: submitPermitApplication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenericApplicationRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ApplicationSubmitted"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /applications/citizenship:
+    post:
+      tags: [Applications]
+      summary: Submit citizenship application
+      operationId: submitCitizenshipApplication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenericApplicationRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ApplicationSubmitted"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /applications/laissez-passer:
+    post:
+      tags: [Applications]
+      summary: Submit emergency travel document (laissez-passer) application
+      operationId: submitLaissezPasserApplication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LaissezPasserApplicationRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ApplicationSubmitted"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /applications/refugee:
+    post:
+      tags: [Applications]
+      summary: Submit refugee services request
+      operationId: submitRefugeeApplication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenericApplicationRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ApplicationSubmitted"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /applications/diaspora:
+    post:
+      tags: [Applications]
+      summary: Submit diaspora services request
+      operationId: submitDiasporaApplication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenericApplicationRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/ApplicationSubmitted"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /applications/status/{refNumber}:
+    get:
+      tags: [Applications]
+      summary: Get application status by reference number
+      operationId: getApplicationStatus
+      parameters:
+        - $ref: "#/components/parameters/RefNumber"
+      responses:
+        "200":
+          description: Application status retrieved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationStatusResponse"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /applications/user/{email}:
+    get:
+      tags: [Applications]
+      summary: Get all applications for a user by email
+      operationId: getUserApplications
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+            format: email
+          description: User email address
+      responses:
+        "200":
+          description: User applications retrieved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserApplicationsResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /applications/{refNumber}/status:
+    put:
+      tags: [Applications]
+      summary: Update application status (admin only)
+      operationId: updateApplicationStatus
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/RefNumber"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StatusUpdateRequest"
+      responses:
+        "200":
+          description: Status updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /applications/{refNumber}/documents:
+    get:
+      tags: [Documents]
+      summary: Get documents attached to an application
+      operationId: getApplicationDocuments
+      parameters:
+        - $ref: "#/components/parameters/RefNumber"
+      responses:
+        "200":
+          description: Document list retrieved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DocumentListResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /documents:
+    post:
+      tags: [Documents]
+      summary: Save document metadata
+      operationId: saveDocument
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DocumentUploadRequest"
+      responses:
+        "200":
+          description: Document metadata saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DocumentUploadResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /appointments:
+    post:
+      tags: [Appointments]
+      summary: Book an appointment
+      operationId: bookAppointment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppointmentRequest"
+      responses:
+        "200":
+          description: Appointment booked
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppointmentResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /appointments/user/{email}:
+    get:
+      tags: [Appointments]
+      summary: Get appointments for a user
+      operationId: getUserAppointments
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+            format: email
+      responses:
+        "200":
+          description: Appointments retrieved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserAppointmentsResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /statistics:
+    get:
+      tags: [Statistics]
+      summary: Get system statistics
+      operationId: getStatistics
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Statistics retrieved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatisticsResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase JWT access token
+
+  parameters:
+    RefNumber:
+      name: refNumber
+      in: path
+      required: true
+      schema:
+        type: string
+        example: PASS-1700000000000-123
+      description: Application reference number
+
+  responses:
+    ApplicationSubmitted:
+      description: Application submitted successfully
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApplicationSubmitResponse"
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    UnauthorizedError:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
+        timestamp:
+          type: string
+          format: date-time
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Application not found
+
+    ApplicationSubmitResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        referenceNumber:
+          type: string
+          example: PASS-1700000000000-123
+        message:
+          type: string
+        estimatedProcessingTime:
+          type: string
+          example: 10-15 business days
+
+    ApplicationStatusResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        application:
+          $ref: "#/components/schemas/ApplicationStatus"
+
+    ApplicationStatus:
+      type: object
+      properties:
+        referenceNumber:
+          type: string
+        type:
+          type: string
+          enum: [passport, visa, permit, citizenship, laissez-passer, refugee, diaspora]
+        status:
+          type: string
+          enum: [submitted, under_review, approved, rejected, awaiting_documents, ready_for_collection]
+        submittedAt:
+          type: string
+          format: date-time
+        lastUpdated:
+          type: string
+          format: date-time
+        isEmergency:
+          type: boolean
+        statusHistory:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatusHistoryEntry"
+
+    StatusHistoryEntry:
+      type: object
+      properties:
+        status:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        note:
+          type: string
+
+    UserApplicationsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        applications:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApplicationSummary"
+
+    ApplicationSummary:
+      type: object
+      properties:
+        refNumber:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        submittedAt:
+          type: string
+          format: date-time
+        isEmergency:
+          type: boolean
+
+    StatusUpdateRequest:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [submitted, under_review, approved, rejected, awaiting_documents, ready_for_collection]
+        note:
+          type: string
+
+    DocumentUploadRequest:
+      type: object
+      required: [applicationRef, documentType, fileName, fileSize, uploadedBy]
+      properties:
+        applicationRef:
+          type: string
+        documentType:
+          type: string
+          example: national_id
+        fileName:
+          type: string
+        fileSize:
+          type: integer
+        uploadedBy:
+          type: string
+          format: email
+
+    DocumentUploadResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        documentId:
+          type: string
+        message:
+          type: string
+
+    DocumentListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        documents:
+          type: array
+          items:
+            $ref: "#/components/schemas/DocumentMeta"
+
+    DocumentMeta:
+      type: object
+      properties:
+        id:
+          type: string
+        applicationRef:
+          type: string
+        documentType:
+          type: string
+        fileName:
+          type: string
+        fileSize:
+          type: integer
+        uploadedBy:
+          type: string
+        uploadedAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+
+    AppointmentRequest:
+      type: object
+      required: [email, date, time, serviceType, location]
+      properties:
+        email:
+          type: string
+          format: email
+        date:
+          type: string
+          format: date
+        time:
+          type: string
+          example: "10:00"
+        serviceType:
+          type: string
+          example: passport_collection
+        location:
+          type: string
+          example: Kigali Immigration Office
+        notes:
+          type: string
+
+    AppointmentResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        appointmentId:
+          type: string
+        message:
+          type: string
+        appointment:
+          $ref: "#/components/schemas/AppointmentDetail"
+
+    AppointmentDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        date:
+          type: string
+          format: date
+        time:
+          type: string
+        serviceType:
+          type: string
+        location:
+          type: string
+        status:
+          type: string
+          enum: [scheduled, completed, cancelled]
+        bookedAt:
+          type: string
+          format: date-time
+
+    UserAppointmentsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        appointments:
+          type: array
+          items:
+            $ref: "#/components/schemas/AppointmentDetail"
+
+    StatisticsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        statistics:
+          $ref: "#/components/schemas/Statistics"
+
+    Statistics:
+      type: object
+      properties:
+        totalApplications:
+          type: integer
+        applicationsByType:
+          type: object
+          additionalProperties:
+            type: integer
+        applicationsByStatus:
+          type: object
+          additionalProperties:
+            type: integer
+        emergencyApplications:
+          type: integer
+        applicationsToday:
+          type: integer
+        applicationsThisWeek:
+          type: integer
+
+    # Application request bodies
+    PassportApplicationRequest:
+      type: object
+      required: [email, firstName, lastName, dateOfBirth, nationality]
+      properties:
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        nationality:
+          type: string
+        passportType:
+          type: string
+          enum: [ordinary, official, diplomatic, emergency]
+        reason:
+          type: string
+
+    VisaApplicationRequest:
+      type: object
+      required: [email, firstName, lastName, passportNumber, destinationCountry, visaType]
+      properties:
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        passportNumber:
+          type: string
+        destinationCountry:
+          type: string
+        visaType:
+          type: string
+          enum: [tourist, business, transit, student, work]
+        travelDates:
+          type: object
+          properties:
+            from:
+              type: string
+              format: date
+            to:
+              type: string
+              format: date
+
+    LaissezPasserApplicationRequest:
+      allOf:
+        - $ref: "#/components/schemas/GenericApplicationRequest"
+        - type: object
+          properties:
+            isEmergency:
+              type: boolean
+              default: false
+            emergencyReason:
+              type: string
+
+    GenericApplicationRequest:
+      type: object
+      required: [email, firstName, lastName]
+      properties:
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
