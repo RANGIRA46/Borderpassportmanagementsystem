@@ -3,13 +3,24 @@ import { logger } from '../utils/logger.js';
 import type { Passport, UserRole } from '../models/types.js';
 import type { CreatePassportInput, UpdatePassportInput } from '../models/schemas.js';
 
+const randomChoice = (chars: string): string => {
+  const n = chars.length;
+  const limit = Math.floor(256 / n) * n;
+  let byte: number;
+  const buf = new Uint8Array(1);
+  do {
+    crypto.getRandomValues(buf);
+    byte = buf[0];
+  } while (byte >= limit);
+  return chars[byte % n];
+};
+
 const generatePassportNumber = (): string => {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const digits = '0123456789';
-  const randomBytes = crypto.getRandomValues(new Uint8Array(9));
   let num = '';
-  for (let i = 0; i < 2; i++) num += chars[randomBytes[i] % chars.length];
-  for (let i = 2; i < 9; i++) num += digits[randomBytes[i] % digits.length];
+  for (let i = 0; i < 2; i++) num += randomChoice(chars);
+  for (let i = 0; i < 7; i++) num += randomChoice(digits);
   return num;
 };
 
