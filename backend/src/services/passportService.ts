@@ -114,11 +114,7 @@ export const passportService = {
   },
 
   async delete(id: string, userId: string, role: UserRole): Promise<void> {
-    const passport = await passportService.getById(id, userId, role);
-
-    if (role === 'citizen' && passport.user_id !== userId) {
-      throw new Error('Forbidden');
-    }
+    await passportService.getById(id, userId, role);
 
     const { error } = await supabaseAdmin
       .from('passports')
