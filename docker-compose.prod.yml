@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  frontend:
+    image: ${REGISTRY:-ghcr.io}/${IMAGE_NAME:-rangira46/bpms-frontend}:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      target: runtime
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+      - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL}
+      - VITE_APP_ENV=production
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+        reservations:
+          cpus: "0.10"
+          memory: 64M
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
