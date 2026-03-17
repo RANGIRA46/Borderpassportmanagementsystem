@@ -6,9 +6,10 @@ import type { CreatePassportInput, UpdatePassportInput } from '../models/schemas
 const generatePassportNumber = (): string => {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const digits = '0123456789';
+  const randomBytes = crypto.getRandomValues(new Uint8Array(9));
   let num = '';
-  for (let i = 0; i < 2; i++) num += chars[Math.floor(Math.random() * chars.length)];
-  for (let i = 0; i < 7; i++) num += digits[Math.floor(Math.random() * digits.length)];
+  for (let i = 0; i < 2; i++) num += chars[randomBytes[i] % chars.length];
+  for (let i = 2; i < 9; i++) num += digits[randomBytes[i] % digits.length];
   return num;
 };
 

@@ -16,7 +16,7 @@ export const loginSchema = z.object({
 export const createPassportSchema = z.object({
   type: z.enum(['regular', 'diplomatic', 'official']),
   full_name: z.string().min(1, 'Full name is required'),
-  date_of_birth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be YYYY-MM-DD'),
+  date_of_birth: z.string().date('Date must be a valid YYYY-MM-DD date'),
   nationality: z.string().min(1, 'Nationality is required'),
   place_of_birth: z.string().min(1, 'Place of birth is required'),
 });
@@ -43,7 +43,7 @@ export const createAppointmentSchema = z.object({
     'border_crossing_permit',
     'other',
   ]),
-  appointment_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be YYYY-MM-DD'),
+  appointment_date: z.string().date('Date must be a valid YYYY-MM-DD date'),
   appointment_time: z.string().regex(/^\d{2}:\d{2}$/, 'Time must be HH:MM'),
   location: z.string().min(1, 'Location is required'),
   notes: z.string().optional(),
