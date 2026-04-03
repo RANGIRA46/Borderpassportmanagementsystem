@@ -40,8 +40,6 @@ import { ProfessionalNavigation } from "./components/professional/ProfessionalNa
 import { OfficerDashboard } from "./components/professional/OfficerDashboard";
 import { ProfessionalAdminDashboard } from "./components/professional/ProfessionalAdminDashboard";
 import { ProfessionalStatusTracker } from "./components/professional/ProfessionalStatusTracker";
-import { ProfessionalDarkHome } from "./components/professional/ProfessionalDarkHome";
-
 import { Alert, AlertDescription } from "./components/ui/alert";
 import { NavigationUtils } from "./components/utils/NavigationUtils";
 import { Toaster } from "./components/ui/sonner";
@@ -205,17 +203,9 @@ function AppContent() {
     }
   };
 
-  // Apply different themes based on user role
   const getThemeClasses = () => {
-    if (currentPage === 'login') return 'min-h-screen bg-blue-lightest';
-    
-    if (isAdminUser) {
-      // Dark professional theme for admin users
-      return 'min-h-screen bg-navy-dark admin-theme';
-    } else {
-      // Light friendly theme for public/customer users
-      return 'min-h-screen bg-blue-lightest customer-theme';
-    }
+    if (currentPage === 'login') return 'app-shell customer-theme';
+    return isAdminUser ? 'app-shell admin-theme' : 'app-shell customer-theme';
   };
 
   return (
@@ -240,8 +230,10 @@ function AppContent() {
         />
       )}
 
-      <main className={currentPage !== 'login' ? "pb-4" : ""}>
-        {renderPage()}
+      <main className={currentPage !== 'login' ? "app-main pb-8" : "app-main"}>
+        <div className="app-content-shell" style={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+          {renderPage()}
+        </div>
       </main>
 
       {/* Floating Language Switcher - Only for customer/public users */}

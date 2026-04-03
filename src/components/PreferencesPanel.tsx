@@ -11,7 +11,7 @@ import { useState } from "react";
 
 export function PreferencesPanel() {
   const { t } = useTranslationWithParams();
-  const { theme, themeMode } = useTheme();
+  const { themeMode } = useTheme();
   const { currentLanguage, setLanguage } = useTranslation();
   const [notifications, setNotifications] = useState(true);
   const [autoSave, setAutoSave] = useState(true);
@@ -58,8 +58,8 @@ export function PreferencesPanel() {
             <div className="flex items-center justify-between">
               <div>
                 <Label className="text-base">{t('preferences.themeMode', {}, 'Theme Mode')}</Label>
-                <p className="text-sm text-navy-medium/60 dark:text-white/60 mt-1">
-                  {t('preferences.themeModeDesc', {}, 'Choose between light, dark, or auto mode')}
+                <p className="text-sm text-navy-medium/60 mt-1">
+                  {t('preferences.themeModeDesc', {}, 'The interface now uses a balanced light theme across the full system')}
                 </p>
               </div>
               <Badge variant="secondary" className="ml-2">
@@ -71,20 +71,20 @@ export function PreferencesPanel() {
             <ThemeToggle expanded />
             
             {/* Current Theme Info */}
-            <div className="mt-4 p-4 rounded-lg bg-blue-lightest dark:bg-[#1E1E1E] border border-blue-light/20 dark:border-white/10">
+            <div className="mt-4 p-4 rounded-lg bg-blue-lightest border border-blue-light/20">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-navy-medium dark:text-white/80">
+                <span className="text-navy-medium">
                   {t('preferences.currentTheme', {}, 'Current Theme')}:
                 </span>
-                <span className="font-medium text-navy-dark dark:text-white">
-                  {theme === "dark" ? t('theme.dark', {}, 'Dark') : t('theme.light', {}, 'Light')}
+                <span className="font-medium text-navy-dark">
+                  {t('theme.light', {}, 'Light')}
                 </span>
               </div>
               <div className="flex items-center justify-between text-sm mt-2">
-                <span className="text-navy-medium dark:text-white/80">
+                <span className="text-navy-medium">
                   {t('preferences.mode', {}, 'Mode')}:
                 </span>
-                <span className="font-medium text-navy-dark dark:text-white capitalize">
+                <span className="font-medium text-navy-dark capitalize">
                   {themeMode}
                 </span>
               </div>
@@ -92,52 +92,48 @@ export function PreferencesPanel() {
 
             {/* Theme Features */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
-              <div className="p-3 rounded-lg bg-white dark:bg-[#1E1E1E] border border-blue-light/20 dark:border-white/10">
+              <div className="p-3 rounded-lg bg-white border border-blue-light/20">
                 <div className="flex items-center gap-2 mb-1">
                   <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                  <span className="text-xs text-navy-medium dark:text-white/60">
-                    {t('preferences.systemSync', {}, 'System Sync')}
+                  <span className="text-xs text-navy-medium">
+                    {t('preferences.systemSync', {}, 'Unified Theme')}
                   </span>
                 </div>
-                <p className="text-xs text-navy-dark dark:text-white">
-                  {themeMode === "auto" ? t('preferences.enabled', {}, 'Enabled') : t('preferences.disabled', {}, 'Disabled')}
-                </p>
-              </div>
-              
-              <div className="p-3 rounded-lg bg-white dark:bg-[#1E1E1E] border border-blue-light/20 dark:border-white/10">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="h-2 w-2 rounded-full bg-blue-500"></div>
-                  <span className="text-xs text-navy-medium dark:text-white/60">
-                    {t('preferences.smoothTransitions', {}, 'Smooth Transitions')}
-                  </span>
-                </div>
-                <p className="text-xs text-navy-dark dark:text-white">
+                <p className="text-xs text-navy-dark">
                   {t('preferences.enabled', {}, 'Enabled')}
                 </p>
               </div>
               
-              <div className="p-3 rounded-lg bg-white dark:bg-[#1E1E1E] border border-blue-light/20 dark:border-white/10">
+              <div className="p-3 rounded-lg bg-white border border-blue-light/20">
                 <div className="flex items-center gap-2 mb-1">
-                  <div className="h-2 w-2 rounded-full bg-purple-500"></div>
-                  <span className="text-xs text-navy-medium dark:text-white/60">
-                    {t('preferences.persistence', {}, 'Persistence')}
+                  <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+                  <span className="text-xs text-navy-medium">
+                    {t('preferences.smoothTransitions', {}, 'Smooth Transitions')}
                   </span>
                 </div>
-                <p className="text-xs text-navy-dark dark:text-white">
+                <p className="text-xs text-navy-dark">
+                  {t('preferences.enabled', {}, 'Enabled')}
+                </p>
+              </div>
+              
+              <div className="p-3 rounded-lg bg-white border border-blue-light/20">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="h-2 w-2 rounded-full bg-amber-500"></div>
+                  <span className="text-xs text-navy-medium">
+                    {t('preferences.persistence', {}, 'Saved Preference')}
+                  </span>
+                </div>
+                <p className="text-xs text-navy-dark">
                   {t('preferences.localStorage', {}, 'Local Storage')}
                 </p>
               </div>
             </div>
 
-            {/* Keyboard Shortcut Hint */}
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-blue-medium/5 dark:bg-blue-500/5 border border-blue-medium/20 dark:border-blue-500/20">
-              <Keyboard className="h-4 w-4 text-blue-medium dark:text-blue-400" />
-              <span className="text-sm text-navy-dark dark:text-white">
-                {t('preferences.shortcut', {}, 'Keyboard Shortcut')}:
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-blue-medium/5 border border-blue-medium/20">
+              <Keyboard className="h-4 w-4 text-blue-medium" />
+              <span className="text-sm text-navy-dark">
+                {t('preferences.shortcut', {}, 'Theme controls have been simplified to light mode only')}
               </span>
-              <kbd className="px-2 py-1 text-xs bg-white dark:bg-[#1E1E1E] border border-blue-light/30 dark:border-white/10 rounded">
-                Ctrl + Shift + T
-              </kbd>
             </div>
           </div>
         </CardContent>

@@ -14,7 +14,6 @@ import {
 import { useAuth } from "./UserAuth";
 import { useTranslation } from "./utils/LanguageSelector";
 import { useTranslationWithParams } from "./utils/TranslationUtils";
-import { ThemeToggle } from "./utils/ThemeProvider";
 import { 
   User, 
   LogOut, 
@@ -163,11 +162,6 @@ export function ModernNavigation({ currentPage, onPageChange }: NavigationProps)
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-3">
-            {/* Theme Toggle - Hidden on mobile, visible on desktop */}
-            <div className="hidden md:block">
-              <ThemeToggle />
-            </div>
-
             {/* User Menu or Login */}
             {isAuthenticated && user ? (
               <DropdownMenu>
@@ -267,12 +261,6 @@ export function ModernNavigation({ currentPage, onPageChange }: NavigationProps)
                     </div>
                   ))}
 
-                  <div className="border-t border-navy-medium/10 dark:border-white/10 pt-4 mt-4">
-                    <div className="flex items-center justify-between px-3 py-2">
-                      <span className="text-sm text-navy-dark dark:text-white">Theme</span>
-                      <ThemeToggle />
-                    </div>
-                  </div>
                 </div>
               </SheetContent>
             </Sheet>

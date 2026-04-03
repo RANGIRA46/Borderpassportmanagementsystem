@@ -1,0 +1,28 @@
+
+> Border/Passport Management System@0.1.0 dev:full
+> concurrently "npm:dev:backend" "npm:dev"
+
+[dev:backend] 
+[dev:backend] > Border/Passport Management System@0.1.0 dev:backend
+[dev:backend] > node server/index.mjs
+[dev:backend] 
+[dev] 
+[dev] > Border/Passport Management System@0.1.0 dev
+[dev] > vite
+[dev] 
+[dev:backend] BPMS backend listening on http://localhost:3001
+[dev:backend] Default admin: admin@bpms.local
+[dev:backend] Default admin password: admin12345
+[dev] 
+[dev]   [32m[1mVITE[22m v6.3.5[39m  [2mready in [0m[1m1404[22m[2m[0m ms[22m
+[dev] 
+[dev]   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m3000[22m/[39m
+[dev] [2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[dev:backend] <-- GET /api/health
+[dev:backend] --> GET /api/health [32m200[0m 24ms
+[dev] ^C
+[dev:backend] ^C^C
+[dev] ^C
+[dev:backend] Terminate batch job (Y/N)? 
+[dev] npm run dev exited with code 3221225786
+[dev:backend] npm run dev:backend exited with code 3221225786

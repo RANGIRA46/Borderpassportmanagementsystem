@@ -20,7 +20,6 @@ import {
   X
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { ThemeToggle } from "../utils/ThemeProvider";
 
 interface ProfessionalNavigationProps {
   currentPage: string;
@@ -95,11 +94,6 @@ export function ProfessionalNavigation({
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-3">
-            {/* Theme Toggle */}
-            <div className="hidden sm:block">
-              <ThemeToggle variant="ghost" size="sm" showLabel={false} />
-            </div>
-
             {/* Notifications */}
             <button className="relative p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
               <Bell className="h-5 w-5 text-slate-600 dark:text-slate-300" />

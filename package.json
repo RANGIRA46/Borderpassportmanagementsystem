@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hono/node-server": "^1.19.12",
     "@jsr/supabase__supabase-js": "^2.49.8",
     "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-alert-dialog": "^1.1.6",
@@ -54,10 +55,15 @@
   "devDependencies": {
     "@types/node": "^20.10.0",
     "@vitejs/plugin-react-swc": "^3.10.2",
+    "concurrently": "^9.2.1",
     "vite": "6.3.5"
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "dev:backend": "node server/index.mjs",
+    "dev:full": "concurrently \"npm:dev:backend\" \"npm:dev\"",
+    "build": "vite build",
+    "db:init": "node scripts/init-db.mjs",
+    "setup": "npm install && npm run db:init"
   }
 }

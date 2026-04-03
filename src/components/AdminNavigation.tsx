@@ -13,7 +13,6 @@ import {
 import { useAuth } from "./UserAuth";
 import { LanguageSelector, useTranslation, Language } from "./utils/LanguageSelector";
 import { useTranslationWithParams } from "./utils/TranslationUtils";
-import { ThemeToggle } from "./utils/ThemeProvider";
 import { 
   User, 
   LogOut, 
@@ -295,14 +294,6 @@ export function AdminNavigation({ currentPage, onPageChange }: AdminNavigationPr
               currentLanguage={currentLanguage}
               onLanguageChange={handleLanguageChange}
               className="text-foreground hover:bg-muted"
-            />
-
-            {/* Theme Toggle */}
-            <ThemeToggle 
-              variant="ghost"
-              size="sm"
-              className="text-foreground hover:bg-muted"
-              showLabel={false}
             />
 
             {/* User Profile Dropdown */}

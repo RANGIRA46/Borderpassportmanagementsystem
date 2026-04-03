@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: bpms-db
+    environment:
+      POSTGRES_DB: ${DB_NAME:-borderpassport}
+      POSTGRES_USER: ${DB_USER:-bpms_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-dev_password_change_me}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-bpms_user} -d ${DB_NAME:-borderpassport}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - bpms-network
+    restart: unless-stopped
+
+  adminer:
+    image: adminer:latest
+    container_name: bpms-adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - bpms-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  bpms-network:
+    driver: bridge
+

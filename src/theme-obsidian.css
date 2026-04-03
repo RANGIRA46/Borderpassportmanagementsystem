@@ -1,0 +1,450 @@
+/* =============================================
+   Midnight Obsidian Dark Theme
+   ============================================= */
+
+:root {
+  /* Core Color Palette */
+  --obsidian-void: #05070A;              /* Primary Background (Deepest Black) */
+  --obsidian-navy: #0F172A;              /* Secondary Background (Dark Navy) */
+  --obsidian-slate: #1E293B;             /* Surface/Elevated Layer */
+  --obsidian-border: #334155;            /* Border/Divider */
+  --obsidian-gray: #475569;              /* Cool Grey */
+  --obsidian-light-gray: #64748B;        /* Secondary Accent */
+  --obsidian-blue: #3B82F6;              /* Primary Accent (Electric Blue) */
+  --obsidian-dark-blue: #1E40AF;         /* Dark Blue for Primary Buttons */
+
+  /* Status Colors */
+  --obsidian-success: #10B981;           /* Emerald Dark */
+  --obsidian-error: #EF4444;             /* Ruby Red */
+  --obsidian-warning: #F59E0B;           /* Amber */
+  --obsidian-info: #06B6D4;              /* Cyan */
+
+  /* Text Colors */
+  --obsidian-text-primary: #FFFFFF;      /* Headings - Pure White */
+  --obsidian-text-secondary: #E2E8F0;    /* Body Text - Off-white */
+  --obsidian-text-muted: #94A3B8;        /* Muted Text - Medium Grey */
+
+  /* Shadows */
+  --obsidian-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.6);
+  --obsidian-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.7);
+  --obsidian-shadow-lg: 0 10px 32px rgba(0, 0, 0, 0.8);
+  --obsidian-shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.9);
+
+  /* Transitions */
+  --obsidian-transition: 200ms ease-in-out;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: var(--obsidian-void);
+  color: var(--obsidian-text-secondary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+  transition: background-color var(--obsidian-transition), color var(--obsidian-transition);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--obsidian-text-primary);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+p {
+  color: var(--obsidian-text-secondary);
+  margin: 0;
+  margin-bottom: 0.5em;
+}
+
+a {
+  color: var(--obsidian-blue);
+  text-decoration: none;
+  transition: color var(--obsidian-transition);
+}
+
+a:hover {
+  color: #60a5fa;
+  text-decoration: underline;
+}
+
+/* Containers & Layout */
+.app-shell {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--obsidian-void) 0%, #0a0d15 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.app-content-shell {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+/* Cards & Elevated Elements */
+.card,
+[class*="card"],
+[class*="Card"] {
+  background: linear-gradient(135deg, var(--obsidian-navy) 0%, var(--obsidian-slate) 100%);
+  border: 1px solid var(--obsidian-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--obsidian-shadow-md);
+  transition: all var(--obsidian-transition);
+}
+
+.card:hover,
+[class*="card"]:hover,
+[class*="Card"]:hover {
+  border-color: var(--obsidian-light-gray);
+  box-shadow: var(--obsidian-shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* Buttons */
+button,
+[class*="button"],
+[class*="Button"],
+[role="button"] {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--obsidian-transition);
+  font-size: 1rem;
+}
+
+/* Primary Button */
+button.primary,
+[class*="btn-primary"],
+[class*="Button-primary"] {
+  background-color: var(--obsidian-blue);
+  color: white;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+button.primary:hover,
+[class*="btn-primary"]:hover,
+[class*="Button-primary"]:hover {
+  background-color: #2563eb;
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Secondary Button */
+button.secondary,
+[class*="btn-secondary"],
+[class*="Button-secondary"] {
+  background-color: transparent;
+  color: var(--obsidian-text-secondary);
+  border: 1px solid var(--obsidian-gray);
+}
+
+button.secondary:hover,
+[class*="btn-secondary"]:hover,
+[class*="Button-secondary"]:hover {
+  border-color: var(--obsidian-blue);
+  color: var(--obsidian-blue);
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Inputs & Forms */
+input, textarea, select,
+[class*="input"],
+[class*="Input"] {
+  background-color: var(--obsidian-void);
+  color: var(--obsidian-text-secondary);
+  border: 1px solid var(--obsidian-border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all var(--obsidian-transition);
+  font-family: inherit;
+}
+
+input:focus, textarea:focus, select:focus,
+[class*="input"]:focus,
+[class*="Input"]:focus {
+  outline: none;
+  border-color: var(--obsidian-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), 0 0 16px rgba(59, 130, 246, 0.3);
+  background-color: rgba(15, 23, 42, 0.8);
+}
+
+/* Placeholder */
+::placeholder {
+  color: var(--obsidian-text-muted);
+}
+
+/* Glassmorphism for overlays */
+.modal, .dialog, .overlay,
+[class*="Modal"], [class*="Dialog"],
+[class*="backdrop"] {
+  backdrop-filter: blur(12px);
+  background-color: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+}
+
+/* Status/Alert Colors */
+.alert-success, [class*="success"] {
+  background-color: rgba(16, 185, 129, 0.1);
+  border-color: var(--obsidian-success);
+  color: #6EE7B7;
+}
+
+.alert-error, [class*="error"] {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: var(--obsidian-error);
+  color: #FCA5A5;
+}
+
+.alert-warning, [class*="warning"] {
+  background-color: rgba(245, 158, 11, 0.1);
+  border-color: var(--obsidian-warning);
+  color: #FCD34D;
+}
+
+.alert-info, [class*="info"] {
+  background-color: rgba(6, 182, 212, 0.1);
+  border-color: var(--obsidian-info);
+  color: #67E8F9;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--obsidian-navy);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--obsidian-shadow-md);
+}
+
+th {
+  background-color: var(--obsidian-slate);
+  color: var(--obsidian-text-primary);
+  font-weight: 600;
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--obsidian-border);
+}
+
+td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--obsidian-border);
+  color: var(--obsidian-text-secondary);
+}
+
+tr:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Dividers */
+hr, [class*="divider"],
+[class*="separator"] {
+  border: none;
+  border-top: 1px solid var(--obsidian-border);
+  margin: 1.5rem 0;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--obsidian-void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--obsidian-light-gray);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--obsidian-blue);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--obsidian-transition) ease-in-out;
+}
+
+.animate-slide-in {
+  animation: slideInRight var(--obsidian-transition) ease-in-out;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-main {
+    padding: 1rem;
+  }
+
+  .app-content-shell {
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 1.875rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  button, [class*="button"], [class*="Button"] {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.text-primary {
+  color: var(--obsidian-text-primary);
+}
+
+.text-secondary {
+  color: var(--obsidian-text-secondary);
+}
+
+.text-muted {
+  color: var(--obsidian-text-muted);
+}
+
+.bg-accent {
+  background-color: var(--obsidian-blue);
+}
+
+.border-accent {
+  border-color: var(--obsidian-blue);
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rounded-12 {
+  border-radius: 12px;
+}
+
+.shadow-obsidian {
+  box-shadow: var(--obsidian-shadow-lg);
+}
+
+/* Admin Dashboard Specific Styles */
+.admin-theme {
+  background: linear-gradient(135deg, #0a0d15 0%, var(--obsidian-void) 100%);
+}
+
+.admin-theme h1, .admin-theme h2, .admin-theme h3, .admin-theme h4 {
+  color: var(--obsidian-blue);
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+}
+
+/* Customer Theme */
+.customer-theme {
+  background: linear-gradient(135deg, var(--obsidian-void) 0%, #0a0d15 100%);
+}
+
+.customer-theme h1, .customer-theme h2, .customer-theme h3 {
+  color: var(--obsidian-text-primary);
+}
+
